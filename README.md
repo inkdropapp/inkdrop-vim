@@ -23,7 +23,7 @@ ipm install vim
 
 ## Key customizations
 
-Default vim keymaps are defined [here](./keymaps/vim.json) and you can override them in your `keymap.cson` file.
+Default vim keymaps are defined [here](https://github.com/inkdropapp/inkdrop-vim/blob/master/keymaps/vim.json) and you can override them in your `keymap.cson` file.
 
 CSS selectors for each mode:
 
@@ -35,7 +35,7 @@ CSS selectors for each mode:
 
 You can check current keybindings on the *Keybindings* pane on preferences window:
 
-![](docs/preferences.png)
+![Preferences](https://raw.githubusercontent.com/inkdropapp/inkdrop-vim/master/docs/preferences.png)
 
 ## Ex Commands
 
