@@ -1,0 +1,15 @@
+{
+  "presets": [
+    ["env", {
+      "targets": { "electron": "1.7.8" },
+      "useBuiltIns": "usage",
+      "debug": false
+    }],
+    "react",
+    "flow"
+  ],
+  "plugins": [
+    "transform-decorators-legacy",
+    "transform-function-bind",
+  ]
+}

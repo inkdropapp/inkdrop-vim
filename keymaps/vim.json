@@ -1,0 +1,143 @@
+{
+  "body": {
+    "ctrl-alt-o": "vim:toggle"
+  },
+  ".CodeMirror.vim-mode": {
+  },
+  ".CodeMirror.vim-mode.normal-mode textarea": {
+    "escape": "vim-mode:reset-normal-mode"
+  },
+  ".CodeMirror.vim-mode:not(.insert-mode):not(.key-buffering) textarea": {
+    "h": "vim-mode:move-left",
+    "left": "vim-mode:move-left",
+    "backspace": "vim-mode:move-left",
+    "l": "vim-mode:move-right",
+    "right": "vim-mode:move-right",
+    "space": "vim-mode:move-right",
+    "k": "vim-mode:move-up",
+    "up": "vim-mode:move-up",
+    "j": "vim-mode:move-down",
+    "down": "vim-mode:move-down",
+
+    "w": "vim-mode:move-to-next-word",
+    "W": "vim-mode:move-to-next-whole-word",
+    "e": "vim-mode:move-to-end-of-word",
+    "E": "vim-mode:move-to-end-of-whole-word",
+    "b": "vim-mode:move-to-previous-word",
+    "B": "vim-mode:move-to-previous-whole-word",
+    "}": "vim-mode:move-to-next-paragraph",
+    "{": "vim-mode:move-to-previous-paragraph",
+    "|": "vim-mode:move-to-beginning-of-line",
+    "^": "vim-mode:move-to-first-character-of-line",
+    "_": "vim-mode:move-to-first-character-of-line-and-down",
+    "$": "vim-mode:move-to-last-character-of-line",
+    "g _": "vim-mode:move-to-last-nonblank-character-of-line-and-down",
+    "-": "vim-mode:move-to-first-character-of-line-up",
+    "+": "vim-mode:move-to-first-character-of-line-down",
+    "enter": "vim-mode:move-to-first-character-of-line-down",
+    "g g": "vim-mode:move-to-start-of-file",
+    "ctrl-u": "vim-mode:scroll-half-screen-up",
+    "ctrl-b": "vim-mode:scroll-full-screen-up",
+    "ctrl-d": "vim-mode:scroll-half-screen-down",
+    "ctrl-f": "vim-mode:scroll-full-screen-down",
+    "ctrl-e": "vim-mode:scroll-down",
+    "ctrl-y": "vim-mode:scroll-up",
+    "z enter": "vim-mode:scroll-cursor-to-top",
+    "z t": "vim-mode:scroll-cursor-to-top-leave",
+    "z .": "vim-mode:scroll-cursor-to-middle",
+    "z z": "vim-mode:scroll-cursor-to-middle-leave",
+    "z -": "vim-mode:scroll-cursor-to-bottom",
+    "z b": "vim-mode:scroll-cursor-to-bottom-leave",
+    "z s": "vim-mode:scroll-cursor-to-left",
+    "z e": "vim-mode:scroll-cursor-to-right",
+    "z M": "editor:fold-all",
+    "z R": "editor:unfold-all",
+    "z c": "editor:fold-current-row",
+    "z o": "editor:unfold-current-row",
+    "G": "vim-mode:move-to-line",
+    "H": "vim-mode:move-to-top-of-screen",
+    "L": "vim-mode:move-to-bottom-of-screen",
+    "M": "vim-mode:move-to-middle-of-screen",
+
+    "d": "vim-mode:delete",
+    "D": "vim-mode:delete-to-last-character-of-line",
+    "c": "vim-mode:change",
+    "C": "vim-mode:change-to-last-character-of-line",
+    "S": "vim-mode:substitute-line",
+    "r": "vim-mode:replace",
+    "I": "vim-mode:insert-at-beginning-of-line",
+    ">": "vim-mode:indent",
+    "<": "vim-mode:outdent",
+    "=": "vim-mode:auto-indent",
+    "J": "vim-mode:join",
+
+    "y": "vim-mode:yank",
+    "Y": "vim-mode:yank-line",
+    "P": "vim-mode:put-before",
+    "p": "vim-mode:put-after",
+
+    "g ~": "vim-mode:toggle-case",
+    "g U": "vim-mode:upper-case",
+    "g u": "vim-mode:lower-case",
+    "~": "vim-mode:toggle-case-now",
+
+    "m": "vim-mode:mark",
+    "`": "vim-mode:move-to-mark-literal",
+    "\"": "vim-mode:move-to-mark",
+
+    "f": "vim-mode:find",
+    "F": "vim-mode:find-backwards",
+    "t": "vim-mode:till",
+    "T": "vim-mode:till-backwards",
+    ";": "vim-mode:repeat-find",
+    ",": "vim-mode:repeat-find-reverse",
+
+    "/": "vim-mode:search",
+    "?": "vim-mode:reverse-search",
+    "*": "vim-mode:search-current-word",
+    "#": "vim-mode:reverse-search-current-word",
+    "n": "vim-mode:repeat-search",
+    "N": "vim-mode:repeat-search-backwards",
+
+    "%": "vim-mode:bracket-matching-motion",
+
+    ":": "vim-mode:ex-command"
+  },
+  ".CodeMirror.vim-mode.normal-mode:not(.key-buffering) textarea": {
+    "i": "vim-mode:activate-insert-mode",
+    "insert": "vim-mode:activate-insert-mode",
+    "R": "vim-mode:activate-replace-mode",
+    "v": "vim-mode:activate-characterwise-visual-mode",
+    "V": "vim-mode:activate-linewise-visual-mode",
+    "ctrl-v": "vim-mode:activate-blockwise-visual-mode",
+    "ctrl-q": "vim-mode:activate-blockwise-visual-mode",
+
+    "u": "vim-mode:undo",
+    "ctrl-r": "core:redo",
+
+    "O": "vim-mode:insert-above-with-newline",
+    "o": "vim-mode:insert-below-with-newline",
+    "a": "vim-mode:insert-after",
+    "A": "vim-mode:insert-after-end-of-line",
+    "x": "vim-mode:delete-right",
+    "X": "vim-mode:delete-left",
+    "s": "vim-mode:substitute",
+    ".": "vim-mode:repeat",
+
+    "ctrl-a": "vim-mode:increase",
+    "ctrl-x": "vim-mode:decrease",
+
+    "\"": "vim-mode:register-prefix"
+  },
+  ".CodeMirror.vim-mode.insert-mode textarea": {
+    "escape": "vim-mode:exit-insert-mode",
+    "ctrl-w": "editor:delete-to-beginning-of-word"
+  },
+  ".CodeMirror.vim-mode.replace-mode textarea": {
+    "escape": "vim-mode:exit-insert-mode"
+  },
+  ".CodeMirror.vim-mode.visual-mode textarea": {
+    "escape": "vim-mode:exit-visual-mode",
+    "\"": "vim-mode:register-prefix"
+  }
+}
