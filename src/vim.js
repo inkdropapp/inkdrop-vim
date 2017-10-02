@@ -17,7 +17,9 @@ class Plugin {
       this.disposables.dispose()
     }
     const editor = inkdrop.getActiveEditor()
-    this.deactivateMode(editor)
+    if (editor) {
+      this.deactivateMode(editor)
+    }
   }
 
   activateMode (editor) {
