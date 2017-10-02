@@ -1,6 +1,7 @@
 import vimKeymap from './keymap'
 import { CompositeDisposable, Disposable, CodeMirror } from 'inkdrop'
 import { autobind } from 'core-decorators'
+import { clipboard } from 'electron'
 
 class Plugin {
   activate () {
@@ -27,6 +28,7 @@ class Plugin {
     this.originalKeyMap = cm.getOption('keyMap')
     cm.setOption('keyMap', 'vim')
     cm.on('vim-mode-change', this.handleVimModeChange)
+    cm.on('focus', this.handleFocusEditor)
 
     const el = cm.getWrapperElement()
     el.classList.add('vim-mode', 'normal-mode')
@@ -271,6 +273,13 @@ class Plugin {
     return inkdrop.getActiveEditor().codeMirror
   }
 
+  yankClipboard () {
+    const state = this.vim.getVimGlobalState()
+    const text = clipboard.readText()
+    const linewise = text.indexOf('\n') >= 0
+    state.registerController.pushText('0', 'yank', text, linewise, true)
+  }
+
   @autobind
   handleEditorInit (editor) {
     this.activateMode(editor)
@@ -333,6 +342,11 @@ class Plugin {
         }
       }
     }
+  }
+
+  @autobind
+  handleFocusEditor (event) {
+    this.yankClipboard()
   }
 }
 

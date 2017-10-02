@@ -33,6 +33,7 @@
  *  8. Set up Vim to work as a keymap for CodeMirror.
  *  9. Ex command implementations.
  */
+const { clipboard } = require('electron')
 
 module.exports = function (CodeMirror) {
   var defaultKeymap = [
@@ -654,15 +655,10 @@ module.exports = function (CodeMirror) {
       getRegisterController: function () {
         return vimGlobalState.registerController
       },
-      // Testing hook.
-      resetVimGlobalState_: resetVimGlobalState,
-
-      // Testing hook.
-      getVimGlobalState_: function () {
+      resetVimGlobalState: resetVimGlobalState,
+      getVimGlobalState: function () {
         return vimGlobalState
       },
-
-      // Testing hook.
       maybeInitVimState: maybeInitVimState,
 
       suppressErrorLogging: false,
@@ -1007,7 +1003,6 @@ module.exports = function (CodeMirror) {
               const reg = new Register(text, linewise, blockwise)
               debug('yanked:', reg)
               this.registers['0'] = reg
-              const { clipboard } = require('electron')
               clipboard.writeText(reg.keyBuffer[0])
               break
             case 'delete':
