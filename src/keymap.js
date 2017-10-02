@@ -1151,7 +1151,7 @@ module.exports = function (CodeMirror) {
       processOperator: function (cm, vim, command) {
         var inputState = vim.inputState
         if (inputState.operator) {
-          if (inputState.operator == command.operator) {
+          if (inputState.operator === command.operator) {
             // Typing an operator twice like 'dd' makes the operator operate
             // linewise
             inputState.motion = 'expandToLine'
@@ -2045,7 +2045,8 @@ module.exports = function (CodeMirror) {
         vimGlobalState.registerController.pushText(
             args.registerName, 'delete', text,
             args.linewise, vim.visualBlock)
-        return clipCursorToContent(cm, finalHead)
+        var includeLineBreak = vim.insertMode
+        return clipCursorToContent(cm, finalHead, includeLineBreak)
       },
       indent: function (cm, args, ranges) {
         var vim = cm.state.vim

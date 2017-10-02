@@ -241,7 +241,7 @@ class Plugin {
       'vim-mode:register-prefix': b({ keys: '"<character>', type: 'action', action: 'setRegister' }),
 
       // insert mode
-      'editor:delete-to-beginning-of-word': h({ keys: '<C-w>', type: 'operatorMotion', operator: 'delete', motion: 'moveByWords', motionArgs: { forward: false, wordEnd: false }, context: 'insert' })
+      'vim-mode:delete-to-beginning-of-word': h({ keys: '<C-w>', type: 'operatorMotion', operator: 'delete', motion: 'moveByWords', motionArgs: { forward: false, wordEnd: false }, context: 'insert' })
     }
     disposables.add(inkdrop.commands.add(editor.node, handlers))
     wrapper.addEventListener('keydown', this.handleEditorKeyDown)

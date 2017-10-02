@@ -131,7 +131,7 @@
   },
   ".CodeMirror.vim-mode.insert-mode textarea": {
     "escape": "vim-mode:exit-insert-mode",
-    "ctrl-w": "editor:delete-to-beginning-of-word"
+    "ctrl-w": "vim-mode:delete-to-beginning-of-word"
   },
   ".CodeMirror.vim-mode.replace-mode textarea": {
     "escape": "vim-mode:exit-insert-mode"
