@@ -113,6 +113,18 @@ class Plugin {
         this.bufferKey(e.originalEvent.key)
       }
     }
+    // bind operator to command
+    const p = (command) => {
+      return (e) => {
+        debug('operator command:', command, e.originalEvent)
+        const vim = this.vim.maybeInitVimState(cm)
+        if (!this.isBufferingKey() && !vim.visualMode) {
+          this.startBufferingKey(h(command))
+          this.bufferKey(e.originalEvent.key)
+        }
+        return h(command)(e)
+      }
+    }
     const handlers = {
       'vim-mode:native!': () => {},
       'vim-mode:reset-normal-mode': (e) => {
@@ -175,19 +187,21 @@ class Plugin {
       'vim-mode:move-to-bottom-of-screen': h({ keys: 'L', type: 'motion', motion: 'moveToBottomLine', motionArgs: { linewise: true, toJumplist: true } }),
       'vim-mode:move-to-middle-of-screen': h({ keys: 'M', type: 'motion', motion: 'moveToMiddleLine', motionArgs: { linewise: true, toJumplist: true } }),
 
-      'vim-mode:delete': h({ keys: 'd', type: 'operator', operator: 'delete' }),
-      'vim-mode:delete-to-last-character-of-line': h({ keys: 'D', type: 'operatorMotion', operator: 'delete', motion: 'moveToEol', motionArgs: { inclusive: true }, context: 'normal' }),
-      'vim-mode:change': h({ keys: 'c', type: 'operator', operator: 'change' }),
-      'vim-mode:change-to-last-character-of-line': h({ keys: 'C', type: 'operatorMotion', operator: 'change', motion: 'moveToEol', motionArgs: { inclusive: true }, context: 'normal' }),
+      'vim-mode:delete': p({ keys: 'd', type: 'operator', operator: 'delete' }),
+      'vim-mode:delete-to-last-character-of-line': p({ keys: 'D', type: 'operatorMotion', operator: 'delete', motion: 'moveToEol', motionArgs: { inclusive: true }, context: 'normal' }),
+      'vim-mode:change': p({ keys: 'c', type: 'operator', operator: 'change' }),
+      'vim-mode:change-to-last-character-of-line': p({ keys: 'C', type: 'operatorMotion', operator: 'change', motion: 'moveToEol', motionArgs: { inclusive: true }, context: 'normal' }),
       'vim-mode:substitute-line': h({ keys: 'S', type: 'keyToKey', toKeys: 'cc', context: 'normal' }),
       'vim-mode:replace': b({ keys: 'r<character>', type: 'action', action: 'replace', isEdit: true }),
       'vim-mode:insert-at-beginning-of-line': h({ keys: 'I', type: 'action', action: 'enterInsertMode', isEdit: true, actionArgs: { insertAt: 'firstNonBlank' }, context: 'normal' }),
-      'vim-mode:indent': h({ keys: '>', type: 'operator', operator: 'indent', operatorArgs: { indentRight: true } }),
-      'vim-mode:outdent': h({ keys: '<', type: 'operator', operator: 'indent', operatorArgs: { indentRight: false } }),
+      'vim-mode:text-object-manipulation-inner': b({ keys: 'i<character>', type: 'motion', motion: 'textObjectManipulation', motionArgs: { textObjectInner: true } }),
+      'vim-mode:text-object-manipulation': b({ keys: 'a<character>', type: 'motion', motion: 'textObjectManipulation' }),
+      'vim-mode:indent': p({ keys: '>', type: 'operator', operator: 'indent', operatorArgs: { indentRight: true } }),
+      'vim-mode:outdent': p({ keys: '<', type: 'operator', operator: 'indent', operatorArgs: { indentRight: false } }),
       'vim-mode:auto-indent': () => { 'not supported' },
       'vim-mode:join': h({ keys: 'J', type: 'action', action: 'joinLines', isEdit: true }),
 
-      'vim-mode:yank': h({ keys: 'y', type: 'operator', operator: 'yank' }),
+      'vim-mode:yank': p({ keys: 'y', type: 'operator', operator: 'yank' }),
       'vim-mode:yank-line': h({ keys: 'Y', type: 'operatorMotion', operator: 'yank', motion: 'expandToLine', motionArgs: { linewise: true }, context: 'normal' }),
       'vim-mode:put-before': h({ keys: 'P', type: 'action', action: 'paste', isEdit: true, actionArgs: { after: false, isEdit: true } }),
       'vim-mode:put-after': h({ keys: 'p', type: 'action', action: 'paste', isEdit: true, actionArgs: { after: true, isEdit: true } }),
@@ -317,22 +331,39 @@ class Plugin {
     const keyName = event.key
     const cm = this.getCodeMirror()
     const vim = this.vim.maybeInitVimState(cm)
+    const isNumberic = keyName.match(/^\d$/)
 
     if (this.isBufferingKey()) {
       debug('handle key buffering:', event)
+      const keyBinding = inkdrop.keymaps.findKeyBindings({
+        keystrokes: keyName,
+        target: cm.getInputField()
+      })
+      const b = cm.getInputField().webkitMatchesSelector('.CodeMirror.vim-mode:not(.insert-mode) textarea')
+      debug('keybinding check:', keyBinding, b)
 
-      if (keyName.length === 1) {
-        vim.inputState.selectedCharacter = event.key
+      if (keyName !== 'Ctrl' && keyName !== 'Alt' && keyName !== 'Shift' && keyName !== 'Meta') {
+        if (keyName.length === 1 && !isNumberic) {
+          vim.inputState.selectedCharacter = event.key
+          vim.inputState.keyBuffer = ''
 
-        if (typeof this.pendingCommand === 'function') {
-          this.pendingCommand(event)
+          if (keyBinding.length === 0) {
+            if (typeof this.pendingCommand === 'function') {
+              this.pendingCommand(event)
+            }
+
+            this.stopBufferingKey()
+            event.stopPropagation()
+            event.preventDefault()
+          }
+        }
+        if (isNumberic) {
+          this.bufferKey(keyName)
+          vim.inputState.pushRepeatDigit(keyName)
         }
       }
-      if (keyName !== 'Ctrl' && keyName !== 'Alt' && keyName !== 'Shift' && keyName !== 'Meta') {
-        this.stopBufferingKey()
-      }
     } else if (!this.isInsertMode()) {
-      if (/^\d$/.test(keyName)) {
+      if (isNumberic) {
         this.bufferKey(keyName)
       } else {
         // push key buffer to the repeat digit
