@@ -49,6 +49,7 @@ class Plugin {
 
   startBufferingKey(command) {
     const wrapper = this.getCodeMirror().getWrapperElement()
+    debug('Start key buffering')
     wrapper.classList.add('key-buffering')
     this.pendingCommand = command
   }
