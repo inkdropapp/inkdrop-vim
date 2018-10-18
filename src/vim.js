@@ -86,7 +86,12 @@ class Plugin {
     // bind key to command
     const h = command => {
       return e => {
-        debug('command:', command)
+        debug(
+          'command:',
+          command,
+          'state:',
+          Object.assign({}, cm.state.vim.inputState)
+        )
         e.stopPropagation()
         const vim = this.vim.maybeInitVimState(cm)
         return cm.operation(() => {
@@ -109,7 +114,13 @@ class Plugin {
     // bind keystroke to command
     const b = command => {
       return e => {
-        debug('buffer command:', command, e.originalEvent)
+        debug(
+          'buffer command:',
+          command,
+          'state:',
+          Object.assign({}, cm.state.vim.inputState),
+          e.originalEvent
+        )
         this.startBufferingKey(h(command))
         this.bufferKey(e.originalEvent.key)
       }
@@ -117,10 +128,29 @@ class Plugin {
     // bind operator to command
     const p = command => {
       return e => {
-        debug('operator command:', command, e.originalEvent)
+        debug(
+          'operator command:',
+          command,
+          'state:',
+          Object.assign({}, cm.state.vim.inputState),
+          e.originalEvent
+        )
         const vim = this.vim.maybeInitVimState(cm)
-        if (!this.isBufferingKey() && !vim.visualMode) {
-          this.startBufferingKey(h(command))
+        if (
+          !vim.inputState.operator &&
+          !this.isBufferingKey() &&
+          !vim.visualMode
+        ) {
+          this.startBufferingKey(e => {
+            const el = cm.getInputField()
+            const keyBinding = inkdrop.keymaps.findKeyBindings({
+              keystrokes: e.key,
+              target: el
+            })
+            if (keyBinding.length > 0) {
+              inkdrop.commands.dispatch(el, keyBinding[0].command)
+            }
+          })
           this.bufferKey(e.originalEvent.key)
         }
         return h(command)(e)
@@ -842,7 +872,7 @@ class Plugin {
     const isNumberic = keyName.match(/^\d$/)
 
     if (this.isBufferingKey()) {
-      debug('handle key buffering:', event)
+      debug('handle key buffering:', keyName, event)
       const keyBinding = inkdrop.keymaps.findKeyBindings({
         keystrokes: keyName,
         target: cm.getInputField()
@@ -865,11 +895,13 @@ class Plugin {
           vim.inputState.keyBuffer = ''
 
           if (keyBinding.length === 0) {
-            if (typeof this.pendingCommand === 'function') {
-              this.pendingCommand(event)
+            const { pendingCommand } = this
+            this.stopBufferingKey()
+
+            if (typeof pendingCommand === 'function') {
+              pendingCommand(event)
             }
 
-            this.stopBufferingKey()
             event.stopPropagation()
             event.preventDefault()
           }
