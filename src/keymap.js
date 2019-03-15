@@ -33,6 +33,7 @@
  *  8. Set up Vim to work as a keymap for CodeMirror.
  *  9. Ex command implementations.
  */
+const { logger } = require('inkdrop')
 const { clipboard } = require('electron')
 
 module.exports = function (CodeMirror) {
@@ -745,7 +746,7 @@ module.exports = function (CodeMirror) {
           if (handleEsc()) { return true }
 
           var keys = vim.inputState.keyBuffer = vim.inputState.keyBuffer + key
-          debug('keyBuffer:', keys)
+          logger.debug('keyBuffer:', keys)
           var keysAreChars = key.length == 1
           var match = commandDispatcher.matchCommand(keys, defaultKeymap, vim.inputState, 'insert')
           // Need to check all key substrings in insert mode.
@@ -814,7 +815,7 @@ module.exports = function (CodeMirror) {
           command = handleKeyNonInsertMode()
         }
 
-        debug('keyBuffer::::', command, vim.inputState.keyBuffer, vim.inputState.operator, vim.inputState.operatorArgs)
+        logger.debug('keyBuffer::::', command, vim.inputState.keyBuffer, vim.inputState.operator, vim.inputState.operatorArgs)
 
         if (command === false) {
           return undefined
@@ -1001,7 +1002,7 @@ module.exports = function (CodeMirror) {
             case 'yank':
               // The 0 register contains the text from the most recent yank.
               const reg = new Register(text, linewise, blockwise)
-              debug('yanked:', reg)
+              logger.debug('yanked:', reg)
               this.registers['0'] = reg
               clipboard.writeText(reg.keyBuffer[0])
               break
@@ -1805,7 +1806,7 @@ module.exports = function (CodeMirror) {
       moveToCharacter: function (cm, head, motionArgs) {
         var repeat = motionArgs.repeat
         recordLastCharacterSearch(0, motionArgs)
-        debug('moveToCharacter:', motionArgs)
+        logger.debug('moveToCharacter:', motionArgs)
         return moveToCharacter(cm, repeat, motionArgs.forward,
             motionArgs.selectedCharacter) || head
       },
@@ -2282,7 +2283,7 @@ module.exports = function (CodeMirror) {
         selectForInsert(cm, head, height)
       },
       toggleVisualMode: function (cm, actionArgs, vim) {
-        debug('toggleVisualMode', actionArgs)
+        logger.debug('toggleVisualMode', actionArgs)
         var repeat = actionArgs.repeat
         var anchor = cm.getCursor()
         var head

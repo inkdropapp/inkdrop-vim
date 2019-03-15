@@ -1,30 +1,29 @@
+import { logger } from 'inkdrop'
 import vimKeymap from './keymap'
-import { CompositeDisposable, Disposable, CodeMirror } from 'inkdrop'
-import { autobind } from 'core-decorators'
+import { CompositeDisposable, Disposable } from 'event-kit'
+import CodeMirror from 'codemirror'
 import { clipboard } from 'electron'
 
 class Plugin {
   activate() {
     this.vim = vimKeymap(CodeMirror)
-    const editor = inkdrop.getActiveEditor()
-    if (editor) {
-      this.activateMode(editor)
+    if (inkdrop.isEditorActive()) {
+      this.activateMode(inkdrop.getActiveEditor())
     }
-    inkdrop.on('editor:init', this.handleEditorInit)
+    inkdrop.onEditorLoad(this.handleEditorLoad)
   }
 
   deactivate() {
     if (this.disposables) {
       this.disposables.dispose()
     }
-    const editor = inkdrop.getActiveEditor()
-    if (editor) {
-      this.deactivateMode(editor)
+    if (inkdrop.isEditorActive()) {
+      this.deactivateMode(inkdrop.getActiveEditor())
     }
   }
 
   activateMode(editor) {
-    const cm = editor.codeMirror
+    const { cm } = editor
     this.originalKeyMap = cm.getOption('keyMap')
     cm.setOption('keyMap', 'vim')
     cm.on('vim-mode-change', this.handleVimModeChange)
@@ -38,9 +37,9 @@ class Plugin {
   }
 
   deactivateMode(editor) {
-    const cm = editor.codeMirror
+    const { cm } = editor
     if (cm && this.originalKeyMap) {
-      editor.codeMirror.setOption('keyMap', this.originalKeyMap)
+      cm.setOption('keyMap', this.originalKeyMap)
       cm.off('vim-mode-change', this.handleVimModeChange)
       const el = cm.getWrapperElement()
       el.classList.remove('vim-mode')
@@ -49,7 +48,7 @@ class Plugin {
 
   startBufferingKey(command) {
     const wrapper = this.getCodeMirror().getWrapperElement()
-    debug('Start key buffering')
+    logger.debug('Start key buffering')
     wrapper.classList.add('key-buffering')
     this.pendingCommand = command
   }
@@ -70,7 +69,7 @@ class Plugin {
     const vim = this.vim.maybeInitVimState(cm)
     const vimKey = this.vim.cmKeyToVimKey("'" + key + "'")
     vim.inputState.keyBuffer = vim.inputState.keyBuffer + vimKey
-    debug('keyBuffer:', vim.inputState.keyBuffer)
+    logger.debug('keyBuffer:', vim.inputState.keyBuffer)
   }
 
   isInsertMode() {
@@ -81,12 +80,12 @@ class Plugin {
   registerCommands() {
     const disposables = new CompositeDisposable()
     const editor = inkdrop.getActiveEditor()
-    const cm = editor.codeMirror
+    const { cm } = editor
     const wrapper = cm.getWrapperElement()
     // bind key to command
     const h = command => {
       return e => {
-        debug(
+        logger.debug(
           'command:',
           command,
           'state:',
@@ -114,7 +113,7 @@ class Plugin {
     // bind keystroke to command
     const b = command => {
       return e => {
-        debug(
+        logger.debug(
           'buffer command:',
           command,
           'state:',
@@ -128,7 +127,7 @@ class Plugin {
     // bind operator to command
     const p = command => {
       return e => {
-        debug(
+        logger.debug(
           'operator command:',
           command,
           'state:',
@@ -164,14 +163,14 @@ class Plugin {
         e.stopPropagation()
       },
       'vim-mode:exit-visual-mode': e => {
-        debug('exit-visual-mode')
+        logger.debug('exit-visual-mode')
         CodeMirror.Vim.clearInputState(cm)
         CodeMirror.Vim.exitVisualMode(cm)
         this.stopBufferingKey()
         e.stopPropagation()
       },
       'vim-mode:exit-insert-mode': e => {
-        debug('exit-insert-mode')
+        logger.debug('exit-insert-mode')
         CodeMirror.Vim.clearInputState(cm)
         CodeMirror.Vim.exitInsertMode(cm)
         this.stopBufferingKey()
@@ -791,9 +790,7 @@ class Plugin {
         context: 'insert'
       })
     }
-    disposables.add(
-      inkdrop.commands.add(editor.textareaRef.nextSibling, handlers)
-    )
+    disposables.add(inkdrop.commands.add(wrapper, handlers))
     wrapper.addEventListener('keydown', this.handleEditorKeyDown)
     disposables.add(
       new Disposable(() =>
@@ -824,7 +821,7 @@ class Plugin {
   }
 
   getCodeMirror() {
-    return inkdrop.getActiveEditor().codeMirror
+    return inkdrop.getActiveEditor().cm
   }
 
   yankClipboard() {
@@ -834,14 +831,12 @@ class Plugin {
     state.registerController.pushText('0', 'yank', text, linewise, true)
   }
 
-  @autobind
-  handleEditorInit(editor) {
+  handleEditorLoad = editor => {
     this.activateMode(editor)
   }
 
-  @autobind
-  handleVimModeChange(event, _opt) {
-    debug('vim mode changed:', event)
+  handleVimModeChange = (event, _opt) => {
+    logger.debug('vim mode changed:', event)
     const { mode } = event
     const cm = this.getCodeMirror()
     cm.getWrapperElement().classList.remove('insert-mode')
@@ -864,15 +859,14 @@ class Plugin {
     }
   }
 
-  @autobind
-  handleEditorKeyDown(event) {
+  handleEditorKeyDown = event => {
     const keyName = event.key
     const cm = this.getCodeMirror()
     const vim = this.vim.maybeInitVimState(cm)
     const isNumberic = keyName.match(/^\d$/)
 
     if (this.isBufferingKey()) {
-      debug('handle key buffering:', keyName, event)
+      logger.debug('handle key buffering:', keyName, event)
       const keyBinding = inkdrop.keymaps.findKeyBindings({
         keystrokes: keyName,
         target: cm.getInputField()
@@ -882,7 +876,7 @@ class Plugin {
         .webkitMatchesSelector(
           '.CodeMirror.vim-mode:not(.insert-mode) textarea'
         )
-      debug('keybinding check:', keyBinding, b)
+      logger.debug('keybinding check:', keyBinding, b)
 
       if (
         keyName !== 'Ctrl' &&
@@ -926,8 +920,7 @@ class Plugin {
     }
   }
 
-  @autobind
-  handleFocusEditor(_event) {
+  handleFocusEditor = _event => {
     this.yankClipboard()
   }
 }
