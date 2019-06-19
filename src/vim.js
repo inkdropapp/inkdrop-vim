@@ -887,8 +887,8 @@ class Plugin {
         const { inputState } = vim
         const hasOperatorOrMotion = inputState.motion || inputState.operator
         if (keyName.length === 1 && (!isNumberic || !hasOperatorOrMotion)) {
-          vim.inputState.selectedCharacter = event.key
-          vim.inputState.keyBuffer = ''
+          inputState.selectedCharacter = event.key
+          inputState.keyBuffer = ''
 
           if (keyBinding.length === 0) {
             const { pendingCommand } = this
@@ -901,8 +901,7 @@ class Plugin {
             event.stopPropagation()
             event.preventDefault()
           }
-        }
-        if (isNumberic) {
+        } else if (isNumberic) {
           this.bufferKey(keyName)
           vim.inputState.pushRepeatDigit(keyName)
         }
