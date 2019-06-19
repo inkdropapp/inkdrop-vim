@@ -69,7 +69,7 @@ class Plugin {
     const vim = this.vim.maybeInitVimState(cm)
     const vimKey = this.vim.cmKeyToVimKey("'" + key + "'")
     vim.inputState.keyBuffer = vim.inputState.keyBuffer + vimKey
-    logger.debug('keyBuffer:', vim.inputState.keyBuffer)
+    logger.debug('keyBuffer:', vim.inputState.keyBuffer, vim.inputState)
   }
 
   isInsertMode() {
@@ -884,7 +884,9 @@ class Plugin {
         keyName !== 'Shift' &&
         keyName !== 'Meta'
       ) {
-        if (keyName.length === 1 && !isNumberic) {
+        const { inputState } = vim
+        const hasOperatorOrMotion = inputState.motion || inputState.operator
+        if (keyName.length === 1 && (!isNumberic || !hasOperatorOrMotion)) {
           vim.inputState.selectedCharacter = event.key
           vim.inputState.keyBuffer = ''
 
