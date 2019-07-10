@@ -788,6 +788,24 @@ class Plugin {
         motion: 'moveByWords',
         motionArgs: { forward: false, wordEnd: false },
         context: 'insert'
+      }),
+
+      // visual mode
+      'vim-mode:insert-at-start-of-target': h({
+        keys: 'I',
+        type: 'action',
+        action: 'enterInsertMode',
+        isEdit: true,
+        actionArgs: { insertAt: 'startOfSelectedArea' },
+        context: 'visual'
+      }),
+      'vim-mode:insert-at-end-of-target': h({
+        keys: 'A',
+        type: 'action',
+        action: 'enterInsertMode',
+        isEdit: true,
+        actionArgs: { insertAt: 'endOfSelectedArea' },
+        context: 'visual'
       })
     }
     disposables.add(inkdrop.commands.add(wrapper, handlers))

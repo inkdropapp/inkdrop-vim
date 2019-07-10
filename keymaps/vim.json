@@ -67,7 +67,6 @@
     "C": "vim-mode:change-to-last-character-of-line",
     "S": "vim-mode:substitute-line",
     "r": "vim-mode:replace",
-    "I": "vim-mode:insert-at-beginning-of-line",
     ">": "vim-mode:indent",
     "<": "vim-mode:outdent",
     "=": "vim-mode:auto-indent",
@@ -109,8 +108,9 @@
     "i": "vim-mode:text-object-manipulation-inner",
     "a": "vim-mode:text-object-manipulation"
   },
-  ".CodeMirror.vim-mode.normal-mode:not(.key-buffering) textarea": {
+  ".CodeMirror.vim-mode.normal-mode:not(.key-buffering):not(.visual-mode) textarea": {
     "i": "vim-mode:activate-insert-mode",
+    "I": "vim-mode:insert-at-beginning-of-line",
     "insert": "vim-mode:activate-insert-mode",
     "R": "vim-mode:activate-replace-mode",
     "v": "vim-mode:activate-characterwise-visual-mode",
@@ -144,6 +144,8 @@
   },
   ".CodeMirror.vim-mode.visual-mode textarea": {
     "escape": "vim-mode:exit-visual-mode",
-    "\"": "vim-mode:register-prefix"
+    "\"": "vim-mode:register-prefix",
+    "I": "vim-mode:insert-at-start-of-target",
+    "A": "vim-mode:insert-at-end-of-target"
   }
 }

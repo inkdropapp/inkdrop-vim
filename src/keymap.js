@@ -2215,6 +2215,7 @@ module.exports = function (CodeMirror) {
       },
       enterInsertMode: function (cm, actionArgs, vim) {
         if (cm.getOption('readOnly')) { return }
+        console.log('enter insert mode!', actionArgs, vim.visualMode)
         cm.getWrapperElement().classList.add('insert-mode')
         cm.getWrapperElement().classList.remove('visual-mode')
         cm.getWrapperElement().classList.remove('normal-mode')
@@ -2231,6 +2232,8 @@ module.exports = function (CodeMirror) {
         } else if (insertAt == 'firstNonBlank') {
           head = motions.moveToFirstNonWhiteSpaceCharacter(cm, head)
         } else if (insertAt == 'startOfSelectedArea') {
+          console.log('startOfSelectedArea:', vim.visualBlock)
+          console.log('sel:', JSON.stringify(sel, null, 2))
           if (!vim.visualBlock) {
             if (sel.head.line < sel.anchor.line) {
               head = sel.head
@@ -2262,6 +2265,9 @@ module.exports = function (CodeMirror) {
           }
         }
         cm.setOption('disableInput', false)
+        if (vim.visualMode) {
+          exitVisualMode(cm)
+        }
         if (actionArgs && actionArgs.replace) {
           // Handle Replace-mode as a special case of insert mode.
           cm.toggleOverwrite(true)
@@ -2276,9 +2282,6 @@ module.exports = function (CodeMirror) {
           // Only record if not replaying.
           cm.on('change', onChange)
           CodeMirror.on(cm.getInputField(), 'keydown', onKeyEventTargetKeyDown)
-        }
-        if (vim.visualMode) {
-          exitVisualMode(cm)
         }
         selectForInsert(cm, head, height)
       },
