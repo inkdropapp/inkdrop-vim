@@ -806,6 +806,19 @@ class Plugin {
         isEdit: true,
         actionArgs: { insertAt: 'endOfSelectedArea' },
         context: 'visual'
+      }),
+      'vim-mode:reverse-selections': h({
+        keys: 'o',
+        type: 'motion',
+        motion: 'moveToOtherHighlightedEnd',
+        context: 'visual'
+      }),
+      'vim-mode:reverse-selections-at-same-line': h({
+        keys: 'O',
+        type: 'motion',
+        motion: 'moveToOtherHighlightedEnd',
+        motionArgs: { sameLine: true },
+        context: 'visual'
       })
     }
     disposables.add(inkdrop.commands.add(wrapper, handlers))

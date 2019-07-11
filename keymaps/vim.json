@@ -146,6 +146,10 @@
     "escape": "vim-mode:exit-visual-mode",
     "\"": "vim-mode:register-prefix",
     "I": "vim-mode:insert-at-start-of-target",
-    "A": "vim-mode:insert-at-end-of-target"
+    "A": "vim-mode:insert-at-end-of-target",
+    "v": "vim-mode:activate-characterwise-visual-mode",
+    "V": "vim-mode:activate-linewise-visual-mode",
+    "o": "vim-mode:reverse-selections",
+    "O": "vim-mode:reverse-selections-at-same-line"
   }
 }
