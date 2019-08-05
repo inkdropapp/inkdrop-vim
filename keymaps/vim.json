@@ -102,11 +102,10 @@
 
     "%": "vim-mode:bracket-matching-motion",
 
-    ":": "vim-mode:ex-command"
-  },
-  ".CodeMirror.vim-mode:not(.insert-mode.key-buffering) textarea": {
     "i": "vim-mode:text-object-manipulation-inner",
-    "a": "vim-mode:text-object-manipulation"
+    "a": "vim-mode:text-object-manipulation",
+
+    ":": "vim-mode:ex-command"
   },
   ".CodeMirror.vim-mode.normal-mode:not(.key-buffering):not(.visual-mode) textarea": {
     "i": "vim-mode:activate-insert-mode",
