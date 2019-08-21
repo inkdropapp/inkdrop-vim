@@ -150,6 +150,8 @@
     "v": "vim-mode:activate-characterwise-visual-mode",
     "V": "vim-mode:activate-linewise-visual-mode",
     "o": "vim-mode:reverse-selections",
-    "O": "vim-mode:reverse-selections-at-same-line"
+    "O": "vim-mode:reverse-selections-at-same-line",
+    "x": "vim-mode:delete-right",
+    "X": "vim-mode:delete-left"
   }
 }
