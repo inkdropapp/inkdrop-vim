@@ -61,6 +61,15 @@ Toggles side-by-side mode.
 
 ## Changelog
 
+### 1.0.6
+
+- fix(keymap): 'X' in visual mode does not work [#7](https://github.com/inkdropapp/inkdrop-vim/issues/7) (Thanks [@usou](https://github.com/usou))
+
+### 1.0.5
+
+- Copy deleted text to clipboard
+- Fix invalid selectors for `vim-mode:text-object-manipulation*` keymaps again
+
 ### 1.0.4
 
 - Fix invalid selectors for `vim-mode:text-object-manipulation*` keymaps

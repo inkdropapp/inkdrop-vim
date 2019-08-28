@@ -1007,6 +1007,7 @@ module.exports = function (CodeMirror) {
               clipboard.writeText(reg.keyBuffer[0])
               break
             case 'delete':
+              clipboard.writeText(text)
             case 'change':
               if (text.indexOf('\n') == -1) {
                 // Delete less than 1 line. Update the small delete register.
@@ -2231,8 +2232,8 @@ module.exports = function (CodeMirror) {
         } else if (insertAt == 'firstNonBlank') {
           head = motions.moveToFirstNonWhiteSpaceCharacter(cm, head)
         } else if (insertAt == 'startOfSelectedArea') {
-          console.log('startOfSelectedArea:', vim.visualBlock)
-          console.log('sel:', JSON.stringify(sel, null, 2))
+          logger.debug('startOfSelectedArea:', vim.visualBlock)
+          logger.debug('sel:', JSON.stringify(sel, null, 2))
           if (!vim.visualBlock) {
             if (sel.head.line < sel.anchor.line) {
               head = sel.head

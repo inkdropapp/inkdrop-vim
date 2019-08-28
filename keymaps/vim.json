@@ -102,10 +102,11 @@
 
     "%": "vim-mode:bracket-matching-motion",
 
-    "i": "vim-mode:text-object-manipulation-inner",
-    "a": "vim-mode:text-object-manipulation",
-
     ":": "vim-mode:ex-command"
+  },
+  ".CodeMirror.vim-mode:not(.insert-mode) textarea": {
+    "i": "vim-mode:text-object-manipulation-inner",
+    "a": "vim-mode:text-object-manipulation"
   },
   ".CodeMirror.vim-mode.normal-mode:not(.key-buffering):not(.visual-mode) textarea": {
     "i": "vim-mode:activate-insert-mode",
@@ -149,6 +150,8 @@
     "v": "vim-mode:activate-characterwise-visual-mode",
     "V": "vim-mode:activate-linewise-visual-mode",
     "o": "vim-mode:reverse-selections",
-    "O": "vim-mode:reverse-selections-at-same-line"
+    "O": "vim-mode:reverse-selections-at-same-line",
+    "x": "vim-mode:delete-right",
+    "X": "vim-mode:delete-left"
   }
 }
