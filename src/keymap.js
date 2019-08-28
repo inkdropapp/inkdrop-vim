@@ -2215,7 +2215,6 @@ module.exports = function (CodeMirror) {
       },
       enterInsertMode: function (cm, actionArgs, vim) {
         if (cm.getOption('readOnly')) { return }
-        console.log('enter insert mode!', actionArgs, vim.visualMode)
         cm.getWrapperElement().classList.add('insert-mode')
         cm.getWrapperElement().classList.remove('visual-mode')
         cm.getWrapperElement().classList.remove('normal-mode')
