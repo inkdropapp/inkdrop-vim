@@ -82,6 +82,42 @@ class Plugin {
     const editor = inkdrop.getActiveEditor()
     const { cm } = editor
     const wrapper = cm.getWrapperElement()
+
+    const doKeyToKey = async command => {
+      logger.debug('doKeyToKey:', command)
+      let keys = command.toKeys
+      while (keys) {
+        // Pull off one command key, which is either a single character
+        // or a special sequence wrapped in '<' and '>', e.g. '<Space>'.
+        const match = /<\w+-.+?>|<\w+>|./.exec(keys)
+        let key = match[0]
+        logger.debug('key:', key)
+        keys = keys.substring(match.index + key.length)
+
+        if (this.isBufferingKey()) {
+          this.handleEditorKeyDown(new KeyboardEvent('keydown', { key }))
+        } else {
+          if (key.match(/^[A-Z]$/)) {
+            key = 'shift-' + key
+          }
+          const { exactMatchCandidates } = inkdrop.keymaps.findMatchCandidates([
+            key
+          ])
+          logger.debug('exactMatchCandidates:', exactMatchCandidates)
+          const bindings = inkdrop.keymaps.findExactMatches(
+            exactMatchCandidates,
+            document.activeElement
+          )
+          const b = bindings[0]
+          if (b) {
+            inkdrop.commands.dispatch(document.activeElement, b.command)
+          } else {
+            logger.debug('command not found for key:', key)
+          }
+        }
+      }
+    }
+
     // bind key to command
     const h = command => {
       return e => {
@@ -96,7 +132,11 @@ class Plugin {
         return cm.operation(() => {
           cm.curOp.isVimOp = true
           try {
-            this.vim.commandDispatcher.processCommand(cm, vim, command)
+            if (command.type === 'keyToKey') {
+              doKeyToKey(command)
+            } else {
+              this.vim.commandDispatcher.processCommand(cm, vim, command)
+            }
           } catch (e) {
             // clear VIM state in case it's in a bad state.
             cm.state.vim = undefined
@@ -132,7 +172,8 @@ class Plugin {
           command,
           'state:',
           Object.assign({}, cm.state.vim.inputState),
-          e.originalEvent
+          e.originalEvent,
+          e
         )
         const vim = this.vim.maybeInitVimState(cm)
         if (
@@ -150,7 +191,12 @@ class Plugin {
               inkdrop.commands.dispatch(el, keyBinding[0].command)
             }
           })
-          this.bufferKey(e.originalEvent.key)
+          if (e.originalEvent) {
+            this.bufferKey(e.originalEvent.key)
+          } else {
+            console.log('buffer key:', command.keys)
+            this.bufferKey(command.keys)
+          }
         }
         return h(command)(e)
       }
@@ -448,6 +494,12 @@ class Plugin {
         type: 'keyToKey',
         toKeys: 'cc',
         context: 'normal'
+      }),
+      'vim-mode:substitute-line-visual': h({
+        keys: 'S',
+        type: 'keyToKey',
+        toKeys: 'VdO',
+        context: 'visual'
       }),
       'vim-mode:replace': b({
         keys: 'r<character>',
@@ -752,6 +804,12 @@ class Plugin {
         type: 'keyToKey',
         toKeys: 'cl',
         context: 'normal'
+      }),
+      'vim-mode:substitute-visual': h({
+        keys: 's',
+        type: 'keyToKey',
+        toKeys: 'c',
+        context: 'visual'
       }),
       'vim-mode:repeat': h({
         keys: '.',

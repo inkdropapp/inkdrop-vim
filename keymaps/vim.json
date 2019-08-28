@@ -65,7 +65,6 @@
     "D": "vim-mode:delete-to-last-character-of-line",
     "c": "vim-mode:change",
     "C": "vim-mode:change-to-last-character-of-line",
-    "S": "vim-mode:substitute-line",
     "r": "vim-mode:replace",
     ">": "vim-mode:indent",
     "<": "vim-mode:outdent",
@@ -128,6 +127,7 @@
     "x": "vim-mode:delete-right",
     "X": "vim-mode:delete-left",
     "s": "vim-mode:substitute",
+    "S": "vim-mode:substitute-line",
     ".": "vim-mode:repeat",
 
     "ctrl-a": "vim-mode:increase",
@@ -152,6 +152,8 @@
     "o": "vim-mode:reverse-selections",
     "O": "vim-mode:reverse-selections-at-same-line",
     "x": "vim-mode:delete-right",
-    "X": "vim-mode:delete-left"
+    "X": "vim-mode:delete-left",
+    "s": "vim-mode:substitute-visual",
+    "S": "vim-mode:substitute-line-visual"
   }
 }
