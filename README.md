@@ -61,6 +61,10 @@ Toggles side-by-side mode.
 
 ## Changelog
 
+### 1.0.7
+
+- fix(keymap): substitute keys not working [#4](https://github.com/inkdropapp/inkdrop-vim/issues/4) (Thanks @gregwebs and @giantsol)
+
 ### 1.0.6
 
 - fix(keymap): 'X' in visual mode does not work [#7](https://github.com/inkdropapp/inkdrop-vim/issues/7) (Thanks [@usou](https://github.com/usou))
