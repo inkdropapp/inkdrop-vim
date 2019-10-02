@@ -61,6 +61,10 @@ Toggles side-by-side mode.
 
 ## Changelog
 
+### 1.0.8
+
+- fix(keymap): handle keystrokes as text input which failed to match binding [#8](https://github.com/inkdropapp/inkdrop-vim/issues/8) (Thanks @rtmoranorg)
+
 ### 1.0.7
 
 - fix(keymap): substitute keys not working [#4](https://github.com/inkdropapp/inkdrop-vim/issues/4) (Thanks @gregwebs and @giantsol)
