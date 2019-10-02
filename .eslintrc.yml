@@ -5,9 +5,7 @@ extends:
   - plugin:prettier/recommended
 parser: babel-eslint
 env: {}
-globals:
-  __noteStatus__: 1
-  emit: 1
+globals: {}
 rules:
   no-useless-escape: 0
   prettier/prettier:
