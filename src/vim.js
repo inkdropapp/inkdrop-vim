@@ -880,6 +880,7 @@ class Plugin {
       })
     }
     disposables.add(inkdrop.commands.add(wrapper, handlers))
+    wrapper.addEventListener('textInput', this.handleEditorTextInput)
     wrapper.addEventListener('keydown', this.handleEditorKeyDown)
     disposables.add(
       new Disposable(() =>
@@ -945,6 +946,16 @@ class Plugin {
       case 'insert':
         cm.getWrapperElement().classList.add('insert-mode')
         break
+    }
+  }
+
+  handleEditorTextInput = event => {
+    // only process if the event is fired via EventTarget.dispatchEvent()
+    if (this.isInsertMode() && !event.isTrusted) {
+      logger.warn('handle text input:', event)
+      const text = event.data
+      const cm = this.getCodeMirror()
+      cm.replaceSelection(text)
     }
   }
 
