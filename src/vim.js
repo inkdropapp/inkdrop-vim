@@ -54,6 +54,7 @@ class Plugin {
   }
 
   stopBufferingKey() {
+    logger.debug('Stop key buffering')
     const wrapper = this.getCodeMirror().getWrapperElement()
     wrapper.classList.remove('key-buffering')
     this.pendingCommand = undefined
@@ -317,6 +318,21 @@ class Plugin {
         motion: 'moveByParagraph',
         motionArgs: { forward: false, toJumplist: true }
       }),
+      'vim-mode:move-to-beginning-of-line-with-zero': (() => {
+        const handler = h({
+          keys: '0',
+          type: 'motion',
+          motion: 'moveToStartOfLine'
+        })
+        return e => {
+          const vim = this.vim.maybeInitVimState(cm)
+          if (vim.inputState.getRepeat() > 0) {
+            vim.inputState.pushRepeatDigit('0')
+          } else {
+            return handler(e)
+          }
+        }
+      })(),
       'vim-mode:move-to-beginning-of-line': h({
         keys: '0',
         type: 'motion',
@@ -1002,13 +1018,12 @@ class Plugin {
             event.preventDefault()
           }
         } else if (isNumberic) {
-          this.bufferKey(keyName)
           vim.inputState.pushRepeatDigit(keyName)
         }
       }
     } else if (!this.isInsertMode()) {
       if (isNumberic) {
-        this.bufferKey(keyName)
+        vim.inputState.pushRepeatDigit(keyName)
       } else {
         // push key buffer to the repeat digit
         const keys = vim.inputState.keyBuffer
