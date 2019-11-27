@@ -488,7 +488,7 @@ class Plugin {
       }),
 
       'vim-mode:delete': p({ keys: 'd', type: 'operator', operator: 'delete' }),
-      'vim-mode:delete-to-last-character-of-line': p({
+      'vim-mode:delete-to-last-character-of-line': h({
         keys: 'D',
         type: 'operatorMotion',
         operator: 'delete',
@@ -497,7 +497,7 @@ class Plugin {
         context: 'normal'
       }),
       'vim-mode:change': p({ keys: 'c', type: 'operator', operator: 'change' }),
-      'vim-mode:change-to-last-character-of-line': p({
+      'vim-mode:change-to-last-character-of-line': h({
         keys: 'C',
         type: 'operatorMotion',
         operator: 'change',
