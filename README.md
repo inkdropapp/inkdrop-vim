@@ -61,6 +61,11 @@ Toggles side-by-side mode.
 
 ## Changelog
 
+### 1.0.10
+
+- fix(operatormotion): do not start key buffering for "D" and "C" operator motions (Thanks shimizu-san)
+- fix(buffering): avoid running command with 0 key while key buffering (Thanks volment)
+
 ### 1.0.8
 
 - fix(keymap): handle keystrokes as text input which failed to match binding [#8](https://github.com/inkdropapp/inkdrop-vim/issues/8) (Thanks @rtmoranorg)
