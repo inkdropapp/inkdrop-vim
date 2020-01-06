@@ -61,6 +61,10 @@ Toggles side-by-side mode.
 
 ## Changelog
 
+### 1.0.11
+
+- fix(debug): typo in debug code that causes an error
+
 ### 1.0.10
 
 - fix(operatormotion): do not start key buffering for "D" and "C" operator motions (Thanks shimizu-san)
