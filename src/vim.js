@@ -968,7 +968,7 @@ class Plugin {
   handleEditorTextInput = event => {
     // only process if the event is fired via EventTarget.dispatchEvent()
     if (this.isInsertMode() && !event.isTrusted) {
-      logger.log('handle text input:', event)
+      logger.debug('handle text input:', event)
       const text = event.data
       const cm = this.getCodeMirror()
       cm.replaceSelection(text)
