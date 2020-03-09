@@ -61,6 +61,10 @@ Toggles side-by-side mode.
 
 ## Changelog
 
+### 1.0.12
+
+- fix(key-buffering): replace character with "a" does not work ([Thanks seachicken](https://github.com/inkdropapp/inkdrop-vim/issues/11))
+
 ### 1.0.11
 
 - fix(debug): typo in debug code that causes an error
