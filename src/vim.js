@@ -46,17 +46,25 @@ class Plugin {
     }
   }
 
-  startBufferingKey(command) {
+  startBufferingKey(command, customBufferingModeClass) {
     const wrapper = this.getCodeMirror().getWrapperElement()
     logger.debug('Start key buffering')
     wrapper.classList.add('key-buffering')
+    if (customBufferingModeClass) {
+      wrapper.classList.add('key-buffering-' + customBufferingModeClass)
+    }
     this.pendingCommand = command
   }
 
   stopBufferingKey() {
     logger.debug('Stop key buffering')
     const wrapper = this.getCodeMirror().getWrapperElement()
-    wrapper.classList.remove('key-buffering')
+    const classes = Array.prototype.slice.apply(wrapper.classList)
+    for (const i of classes) {
+      if (i.startsWith('key-buffering')) {
+        wrapper.classList.remove(i)
+      }
+    }
     this.pendingCommand = undefined
   }
 
@@ -161,11 +169,11 @@ class Plugin {
           Object.assign({}, cm.state.vim.inputState),
           e.originalEvent
         )
-        this.startBufferingKey(h(command))
+        this.startBufferingKey(h(command), 'command')
         this.bufferKey(e.originalEvent.key)
       }
     }
-    // bind operator to command
+    // bind keystroke to operator
     const p = command => {
       return e => {
         logger.debug(
@@ -191,11 +199,11 @@ class Plugin {
             if (keyBinding.length > 0) {
               inkdrop.commands.dispatch(el, keyBinding[0].command)
             }
-          })
+          }, 'operator')
           if (e.originalEvent) {
             this.bufferKey(e.originalEvent.key)
           } else {
-            console.log('buffer key:', command.keys)
+            logger.debug('buffer key:', command.keys)
             this.bufferKey(command.keys)
           }
         }

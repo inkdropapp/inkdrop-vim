@@ -2,8 +2,7 @@
   "body": {
     "ctrl-alt-o": "vim:toggle"
   },
-  ".CodeMirror.vim-mode": {
-  },
+  ".CodeMirror.vim-mode": {},
   ".CodeMirror.vim-mode.normal-mode textarea": {
     "escape": "vim-mode:reset-normal-mode"
   },
@@ -104,7 +103,7 @@
 
     ":": "vim-mode:ex-command"
   },
-  ".CodeMirror.vim-mode:not(.insert-mode) textarea": {
+  ".CodeMirror.vim-mode:not(.insert-mode):not(.key-buffering-command) textarea": {
     "i": "vim-mode:text-object-manipulation-inner",
     "a": "vim-mode:text-object-manipulation"
   },
