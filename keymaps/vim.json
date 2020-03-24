@@ -1,7 +1,4 @@
 {
-  "body": {
-    "ctrl-alt-o": "vim:toggle"
-  },
   ".CodeMirror.vim-mode": {},
   ".CodeMirror.vim-mode.normal-mode textarea": {
     "escape": "vim-mode:reset-normal-mode"
