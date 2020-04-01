@@ -901,7 +901,19 @@ class Plugin {
         motion: 'moveToOtherHighlightedEnd',
         motionArgs: { sameLine: true },
         context: 'visual'
-      })
+      }),
+      'vim-mode:open-link': () => {
+         const cur = cm.getCursor()
+         const token = cm.getTokenAt(cur)
+         if (token.type == 'url') {
+           open(token.string)
+         } else if (token.type = "string url") {
+            const link = token.string.replace("inkdrop://", "")
+            inkdrop.commands.dispatch(document.body, "core:open-note", {
+              noteId: link,
+            })
+         }
+      }
     }
     disposables.add(inkdrop.commands.add(wrapper, handlers))
     wrapper.addEventListener('textInput', this.handleEditorTextInput)
