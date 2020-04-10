@@ -211,76 +211,76 @@ class Plugin {
       }
     }
     const handlers = {
-      'vim-mode:native!': () => {},
-      'vim-mode:reset-normal-mode': e => {
+      'vim:native!': () => {},
+      'vim:reset-normal-mode': e => {
         CodeMirror.Vim.clearInputState(cm)
         this.stopBufferingKey()
         e.stopPropagation()
       },
-      'vim-mode:exit-visual-mode': e => {
+      'vim:exit-visual-mode': e => {
         logger.debug('exit-visual-mode')
         CodeMirror.Vim.clearInputState(cm)
         CodeMirror.Vim.exitVisualMode(cm)
         this.stopBufferingKey()
         e.stopPropagation()
       },
-      'vim-mode:exit-insert-mode': e => {
+      'vim:exit-insert-mode': e => {
         logger.debug('exit-insert-mode')
         CodeMirror.Vim.clearInputState(cm)
         CodeMirror.Vim.exitInsertMode(cm)
         this.stopBufferingKey()
         e.stopPropagation()
       },
-      'vim-mode:move-left': h({
+      'vim:move-left': h({
         keys: 'h',
         type: 'motion',
         motion: 'moveByCharacters',
         motionArgs: { forward: false }
       }),
-      'vim-mode:move-right': h({
+      'vim:move-right': h({
         keys: 'l',
         type: 'motion',
         motion: 'moveByCharacters',
         motionArgs: { forward: true }
       }),
-      'vim-mode:move-up': h({
+      'vim:move-up': h({
         keys: 'k',
         type: 'motion',
         motion: 'moveByLines',
         motionArgs: { forward: false, linewise: true }
       }),
-      'vim-mode:move-down': h({
+      'vim:move-down': h({
         keys: 'j',
         type: 'motion',
         motion: 'moveByLines',
         motionArgs: { forward: true, linewise: true }
       }),
 
-      'vim-mode:move-to-next-word': h({
+      'vim:move-to-next-word': h({
         keys: 'w',
         type: 'motion',
         motion: 'moveByWords',
         motionArgs: { forward: true, wordEnd: false }
       }),
-      'vim-mode:move-to-next-whole-word': h({
+      'vim:move-to-next-whole-word': h({
         keys: 'W',
         type: 'motion',
         motion: 'moveByWords',
         motionArgs: { forward: true, wordEnd: false, bigWord: true }
       }),
-      'vim-mode:move-to-end-of-word': h({
+      'vim:move-to-end-of-word': h({
         keys: 'e',
         type: 'motion',
         motion: 'moveByWords',
         motionArgs: { forward: true, wordEnd: true, inclusive: true }
       }),
-      'vim-mode:move-to-previous-end-of-word': h({
+      'vim:move-to-previous-end-of-word': h({
         keys: 'ge',
         type: 'motion',
         motion: 'moveByWords',
         motionArgs: { forward: false, wordEnd: true, inclusive: true }
       }),
-      'vim-mode:move-to-end-of-whole-word': h({
+      'vim:move-to-end-of-whole-word': h({
         keys: 'E',
         type: 'motion',
         motion: 'moveByWords',
@@ -291,7 +291,7 @@ class Plugin {
           inclusive: true
         }
       }),
-      'vim-mode:move-to-previous-end-of-whole-word': h({
+      'vim:move-to-previous-end-of-whole-word': h({
         keys: 'gE',
         type: 'motion',
         motion: 'moveByWords',
@@ -302,31 +302,31 @@ class Plugin {
           inclusive: true
         }
       }),
-      'vim-mode:move-to-previous-word': h({
+      'vim:move-to-previous-word': h({
         keys: 'b',
         type: 'motion',
         motion: 'moveByWords',
         motionArgs: { forward: false, wordEnd: false }
       }),
-      'vim-mode:move-to-previous-whole-word': h({
+      'vim:move-to-previous-whole-word': h({
         keys: 'B',
         type: 'motion',
         motion: 'moveByWords',
         motionArgs: { forward: false, wordEnd: false, bigWord: true }
       }),
-      'vim-mode:move-to-next-paragraph': h({
+      'vim:move-to-next-paragraph': h({
         keys: '}',
         type: 'motion',
         motion: 'moveByParagraph',
         motionArgs: { forward: true, toJumplist: true }
       }),
-      'vim-mode:move-to-previous-paragraph': h({
+      'vim:move-to-previous-paragraph': h({
         keys: '{',
         type: 'motion',
         motion: 'moveByParagraph',
         motionArgs: { forward: false, toJumplist: true }
       }),
-      'vim-mode:move-to-beginning-of-line-with-zero': (() => {
+      'vim:move-to-beginning-of-line-with-zero': (() => {
         const handler = h({
           keys: '0',
           type: 'motion',
@@ -341,45 +341,45 @@ class Plugin {
           }
         }
       })(),
-      'vim-mode:move-to-beginning-of-line': h({
+      'vim:move-to-beginning-of-line': h({
         keys: '0',
         type: 'motion',
         motion: 'moveToStartOfLine'
       }),
-      'vim-mode:move-to-first-character-of-line': h({
+      'vim:move-to-first-character-of-line': h({
         keys: '^',
         type: 'motion',
         motion: 'moveToFirstNonWhiteSpaceCharacter'
       }),
-      'vim-mode:move-to-first-character-of-line-and-down': h({
+      'vim:move-to-first-character-of-line-and-down': h({
         keys: '_',
         type: 'motion',
         motion: 'moveByLines',
         motionArgs: { forward: true, toFirstChar: true, repeatOffset: -1 }
       }),
-      'vim-mode:move-to-last-character-of-line': h({
+      'vim:move-to-last-character-of-line': h({
         keys: '$',
         type: 'motion',
         motion: 'moveToEol',
         motionArgs: { inclusive: true }
       }),
-      'vim-mode:move-to-last-nonblank-character-of-line-and-down': () => {
+      'vim:move-to-last-nonblank-character-of-line-and-down': () => {
         '???'
       },
-      'vim-mode:move-to-first-character-of-line-up': h({
+      'vim:move-to-first-character-of-line-up': h({
         keys: '-',
         type: 'motion',
         motion: 'moveByLines',
         motionArgs: { forward: false, toFirstChar: true }
       }),
-      'vim-mode:move-to-first-character-of-line-down': h({
+      'vim:move-to-first-character-of-line-down': h({
         keys: '+',
         type: 'motion',
         motion: 'moveByLines',
         motionArgs: { forward: true, toFirstChar: true }
       }),
 
-      'vim-mode:move-to-start-of-file': h({
+      'vim:move-to-start-of-file': h({
         keys: 'gg',
         type: 'motion',
         motion: 'moveToLineOrEdgeOfDocument',
@@ -390,82 +390,82 @@ class Plugin {
           toJumplist: true
         }
       }),
-      'vim-mode:scroll-half-screen-up': h({
+      'vim:scroll-half-screen-up': h({
         keys: '<C-u>',
         type: 'motion',
         motion: 'moveByScroll',
         motionArgs: { forward: false, explicitRepeat: true }
       }),
-      'vim-mode:scroll-full-screen-up': h({
+      'vim:scroll-full-screen-up': h({
         keys: '<C-b>',
         type: 'motion',
         motion: 'moveByPage',
         motionArgs: { forward: false }
       }),
-      'vim-mode:scroll-half-screen-down': h({
+      'vim:scroll-half-screen-down': h({
         keys: '<C-d>',
         type: 'motion',
         motion: 'moveByScroll',
         motionArgs: { forward: true, explicitRepeat: true }
       }),
-      'vim-mode:scroll-full-screen-down': h({
+      'vim:scroll-full-screen-down': h({
         keys: '<C-f>',
         type: 'motion',
         motion: 'moveByPage',
         motionArgs: { forward: true }
       }),
-      'vim-mode:scroll-down': h({
+      'vim:scroll-down': h({
         keys: '<C-e>',
         type: 'action',
         action: 'scroll',
         actionArgs: { forward: true, linewise: true }
       }),
-      'vim-mode:scroll-up': h({
+      'vim:scroll-up': h({
         keys: '<C-y>',
         type: 'action',
         action: 'scroll',
         actionArgs: { forward: false, linewise: true }
       }),
-      'vim-mode:scroll-cursor-to-top': h({
+      'vim:scroll-cursor-to-top': h({
         keys: 'z<CR>',
         type: 'action',
         action: 'scrollToCursor',
         actionArgs: { position: 'top' },
         motion: 'moveToFirstNonWhiteSpaceCharacter'
       }),
-      'vim-mode:scroll-cursor-to-top-leave': h({
+      'vim:scroll-cursor-to-top-leave': h({
         keys: 'zt',
         type: 'action',
         action: 'scrollToCursor',
         actionArgs: { position: 'top' }
       }),
-      'vim-mode:scroll-cursor-to-middle': h({
+      'vim:scroll-cursor-to-middle': h({
         keys: 'z.',
         type: 'action',
         action: 'scrollToCursor',
         actionArgs: { position: 'center' },
         motion: 'moveToFirstNonWhiteSpaceCharacter'
       }),
-      'vim-mode:scroll-cursor-to-middle-leave': h({
+      'vim:scroll-cursor-to-middle-leave': h({
         keys: 'zz',
         type: 'action',
         action: 'scrollToCursor',
         actionArgs: { position: 'center' }
       }),
-      'vim-mode:scroll-cursor-to-bottom': h({
+      'vim:scroll-cursor-to-bottom': h({
         keys: 'z-',
         type: 'action',
         action: 'scrollToCursor',
         actionArgs: { position: 'bottom' }
       }),
-      'vim-mode:scroll-cursor-to-bottom-leave': h({
+      'vim:scroll-cursor-to-bottom-leave': h({
         keys: 'zb',
         type: 'action',
         action: 'scrollToCursor',
         actionArgs: { position: 'bottom' },
         motion: 'moveToFirstNonWhiteSpaceCharacter'
       }),
-      'vim-mode:move-to-line': h({
+      'vim:move-to-line': h({
         keys: 'G',
         type: 'motion',
         motion: 'moveToLineOrEdgeOfDocument',
@@ -476,27 +476,27 @@ class Plugin {
           toJumplist: true
         }
       }),
-      'vim-mode:move-to-top-of-screen': h({
+      'vim:move-to-top-of-screen': h({
         keys: 'H',
         type: 'motion',
         motion: 'moveToTopLine',
         motionArgs: { linewise: true, toJumplist: true }
       }),
-      'vim-mode:move-to-bottom-of-screen': h({
+      'vim:move-to-bottom-of-screen': h({
         keys: 'L',
         type: 'motion',
         motion: 'moveToBottomLine',
         motionArgs: { linewise: true, toJumplist: true }
       }),
-      'vim-mode:move-to-middle-of-screen': h({
+      'vim:move-to-middle-of-screen': h({
         keys: 'M',
         type: 'motion',
         motion: 'moveToMiddleLine',
         motionArgs: { linewise: true, toJumplist: true }
       }),
 
-      'vim-mode:delete': p({ keys: 'd', type: 'operator', operator: 'delete' }),
-      'vim-mode:delete-to-last-character-of-line': h({
+      'vim:delete': p({ keys: 'd', type: 'operator', operator: 'delete' }),
+      'vim:delete-to-last-character-of-line': h({
         keys: 'D',
         type: 'operatorMotion',
         operator: 'delete',
@@ -504,8 +504,8 @@ class Plugin {
         motionArgs: { inclusive: true },
         context: 'normal'
       }),
-      'vim-mode:change': p({ keys: 'c', type: 'operator', operator: 'change' }),
-      'vim-mode:change-to-last-character-of-line': h({
+      'vim:change': p({ keys: 'c', type: 'operator', operator: 'change' }),
+      'vim:change-to-last-character-of-line': h({
         keys: 'C',
         type: 'operatorMotion',
         operator: 'change',
@@ -513,25 +513,25 @@ class Plugin {
         motionArgs: { inclusive: true },
         context: 'normal'
       }),
-      'vim-mode:substitute-line': h({
+      'vim:substitute-line': h({
         keys: 'S',
         type: 'keyToKey',
         toKeys: 'cc',
         context: 'normal'
       }),
-      'vim-mode:substitute-line-visual': h({
+      'vim:substitute-line-visual': h({
         keys: 'S',
         type: 'keyToKey',
         toKeys: 'VdO',
         context: 'visual'
       }),
-      'vim-mode:replace': b({
+      'vim:replace': b({
         keys: 'r<character>',
         type: 'action',
         action: 'replace',
         isEdit: true
       }),
-      'vim-mode:insert-at-beginning-of-line': h({
+      'vim:insert-at-beginning-of-line': h({
         keys: 'I',
         type: 'action',
         action: 'enterInsertMode',
@@ -539,41 +539,41 @@ class Plugin {
         actionArgs: { insertAt: 'firstNonBlank' },
         context: 'normal'
       }),
-      'vim-mode:text-object-manipulation-inner': b({
+      'vim:text-object-manipulation-inner': b({
         keys: 'i<character>',
         type: 'motion',
         motion: 'textObjectManipulation',
         motionArgs: { textObjectInner: true }
       }),
-      'vim-mode:text-object-manipulation': b({
+      'vim:text-object-manipulation': b({
         keys: 'a<character>',
         type: 'motion',
         motion: 'textObjectManipulation'
       }),
-      'vim-mode:indent': p({
+      'vim:indent': p({
         keys: '>',
         type: 'operator',
         operator: 'indent',
         operatorArgs: { indentRight: true }
       }),
-      'vim-mode:outdent': p({
+      'vim:outdent': p({
         keys: '<',
         type: 'operator',
         operator: 'indent',
         operatorArgs: { indentRight: false }
       }),
-      'vim-mode:auto-indent': () => {
+      'vim:auto-indent': () => {
         'not supported'
       },
-      'vim-mode:join': h({
+      'vim:join': h({
         keys: 'J',
         type: 'action',
         action: 'joinLines',
         isEdit: true
       }),
 
-      'vim-mode:yank': p({ keys: 'y', type: 'operator', operator: 'yank' }),
-      'vim-mode:yank-line': h({
+      'vim:yank': p({ keys: 'y', type: 'operator', operator: 'yank' }),
+      'vim:yank-line': h({
         keys: 'Y',
         type: 'operatorMotion',
         operator: 'yank',
@@ -581,14 +581,14 @@ class Plugin {
         motionArgs: { linewise: true },
         context: 'normal'
       }),
-      'vim-mode:put-before': h({
+      'vim:put-before': h({
         keys: 'P',
         type: 'action',
         action: 'paste',
         isEdit: true,
         actionArgs: { after: false, isEdit: true }
       }),
-      'vim-mode:put-after': h({
+      'vim:put-after': h({
         keys: 'p',
         type: 'action',
         action: 'paste',
@@ -596,26 +596,26 @@ class Plugin {
         actionArgs: { after: true, isEdit: true }
       }),
 
-      'vim-mode:toggle-case': h({
+      'vim:toggle-case': h({
         keys: 'g~',
         type: 'operator',
         operator: 'changeCase'
       }),
-      'vim-mode:upper-case': h({
+      'vim:upper-case': h({
         keys: 'gU',
         type: 'operator',
         operator: 'changeCase',
         operatorArgs: { toLower: false },
         isEdit: true
       }),
-      'vim-mode:lower-case': h({
+      'vim:lower-case': h({
         keys: 'gu',
         type: 'operator',
         operator: 'changeCase',
         operatorArgs: { toLower: true },
         isEdit: true
       }),
-      'vim-mode:toggle-case-now': h({
+      'vim:toggle-case-now': h({
         keys: '~',
         type: 'operatorMotion',
         operator: 'changeCase',
@@ -625,72 +625,72 @@ class Plugin {
         context: 'normal'
       }),
 
-      'vim-mode:mark': b({
+      'vim:mark': b({
         keys: 'm<character>',
         type: 'action',
         action: 'setMark'
       }),
-      'vim-mode:move-to-mark-literal': b({
+      'vim:move-to-mark-literal': b({
         keys: '`<character>',
         type: 'motion',
         motion: 'goToMark',
         motionArgs: { toJumplist: true }
       }),
-      'vim-mode:move-to-mark': b({
+      'vim:move-to-mark': b({
         keys: "'<character>",
         type: 'motion',
         motion: 'goToMark',
         motionArgs: { toJumplist: true, linewise: true }
       }),
 
-      'vim-mode:find': b({
+      'vim:find': b({
         keys: 'f<character>',
         type: 'motion',
         motion: 'moveToCharacter',
         motionArgs: { forward: true, inclusive: true }
       }),
-      'vim-mode:find-backwards': b({
+      'vim:find-backwards': b({
         keys: 'F<character>',
         type: 'motion',
         motion: 'moveToCharacter',
         motionArgs: { forward: false }
       }),
-      'vim-mode:till': b({
+      'vim:till': b({
         keys: 't<character>',
         type: 'motion',
         motion: 'moveTillCharacter',
         motionArgs: { forward: true, inclusive: true }
       }),
-      'vim-mode:till-backwards': b({
+      'vim:till-backwards': b({
         keys: 'T<character>',
         type: 'motion',
         motion: 'moveTillCharacter',
         motionArgs: { forward: false }
       }),
-      'vim-mode:repeat-find': h({
+      'vim:repeat-find': h({
         keys: ';',
         type: 'motion',
         motion: 'repeatLastCharacterSearch',
         motionArgs: { forward: true }
       }),
-      'vim-mode:repeat-find-reverse': h({
+      'vim:repeat-find-reverse': h({
         keys: ',',
         type: 'motion',
         motion: 'repeatLastCharacterSearch',
         motionArgs: { forward: false }
       }),
 
-      'vim-mode:search': h({
+      'vim:search': h({
         keys: '/',
         type: 'search',
         searchArgs: { forward: true, querySrc: 'prompt', toJumplist: true }
       }),
-      'vim-mode:reverse-search': h({
+      'vim:reverse-search': h({
         keys: '?',
         type: 'search',
         searchArgs: { forward: false, querySrc: 'prompt', toJumplist: true }
       }),
-      'vim-mode:search-current-word': h({
+      'vim:search-current-word': h({
         keys: '*',
         type: 'search',
         searchArgs: {
@@ -700,7 +700,7 @@ class Plugin {
           toJumplist: true
         }
       }),
-      'vim-mode:reverse-search-current-word': h({
+      'vim:reverse-search-current-word': h({
         keys: '#',
         type: 'search',
         searchArgs: {
@@ -710,30 +710,30 @@ class Plugin {
           toJumplist: true
         }
       }),
-      'vim-mode:repeat-search': h({
+      'vim:repeat-search': h({
         keys: 'n',
         type: 'motion',
         motion: 'findNext',
         motionArgs: { forward: true, toJumplist: true }
       }),
-      'vim-mode:repeat-search-backwards': h({
+      'vim:repeat-search-backwards': h({
         keys: 'N',
         type: 'motion',
         motion: 'findNext',
         motionArgs: { forward: false, toJumplist: true }
       }),
 
-      'vim-mode:bracket-matching-motion': h({
+      'vim:bracket-matching-motion': h({
         keys: '%',
         type: 'motion',
         motion: 'moveToMatchedSymbol',
         motionArgs: { inclusive: true, toJumplist: true }
       }),
 
-      'vim-mode:ex-command': h({ keys: ':', type: 'ex' }),
+      'vim:ex-command': h({ keys: ':', type: 'ex' }),
 
       // normal mode
-      'vim-mode:activate-insert-mode': h({
+      'vim:activate-insert-mode': h({
         keys: 'i',
         type: 'action',
         action: 'enterInsertMode',
@@ -741,39 +741,39 @@ class Plugin {
         actionArgs: { insertAt: 'inplace' },
         context: 'normal'
       }),
-      'vim-mode:activate-replace-mode': h({
+      'vim:activate-replace-mode': h({
         keys: 'R',
         type: 'action',
         action: 'enterInsertMode',
         isEdit: true,
         actionArgs: { replace: true }
       }),
-      'vim-mode:activate-characterwise-visual-mode': h({
+      'vim:activate-characterwise-visual-mode': h({
         keys: 'v',
         type: 'action',
         action: 'toggleVisualMode'
       }),
-      'vim-mode:activate-linewise-visual-mode': h({
+      'vim:activate-linewise-visual-mode': h({
         keys: 'V',
         type: 'action',
         action: 'toggleVisualMode',
         actionArgs: { linewise: true }
       }),
-      'vim-mode:activate-blockwise-visual-mode': h({
+      'vim:activate-blockwise-visual-mode': h({
         keys: '<C-v>',
         type: 'action',
         action: 'toggleVisualMode',
         actionArgs: { blockwise: true }
       }),
 
-      'vim-mode:undo': h({
+      'vim:undo': h({
         keys: 'u',
         type: 'action',
         action: 'undo',
         context: 'normal'
       }),
 
-      'vim-mode:insert-above-with-newline': h({
+      'vim:insert-above-with-newline': h({
         keys: 'O',
         type: 'action',
         action: 'newLineAndEnterInsertMode',
@@ -782,7 +782,7 @@ class Plugin {
         actionArgs: { after: false },
         context: 'normal'
       }),
-      'vim-mode:insert-below-with-newline': h({
+      'vim:insert-below-with-newline': h({
         keys: 'o',
         type: 'action',
         action: 'newLineAndEnterInsertMode',
@@ -791,7 +791,7 @@ class Plugin {
         actionArgs: { after: true },
         context: 'normal'
       }),
-      'vim-mode:insert-after': h({
+      'vim:insert-after': h({
         keys: 'a',
         type: 'action',
         action: 'enterInsertMode',
@@ -799,7 +799,7 @@ class Plugin {
         actionArgs: { insertAt: 'charAfter' },
         context: 'normal'
       }),
-      'vim-mode:insert-after-end-of-line': h({
+      'vim:insert-after-end-of-line': h({
         keys: 'A',
         type: 'action',
         action: 'enterInsertMode',
@@ -807,7 +807,7 @@ class Plugin {
         actionArgs: { insertAt: 'eol' },
         context: 'normal'
       }),
-      'vim-mode:delete-right': h({
+      'vim:delete-right': h({
         keys: 'x',
         type: 'operatorMotion',
         operator: 'delete',
@@ -815,7 +815,7 @@ class Plugin {
         motionArgs: { forward: true },
         operatorMotionArgs: { visualLine: false }
       }),
-      'vim-mode:delete-left': h({
+      'vim:delete-left': h({
         keys: 'X',
         type: 'operatorMotion',
         operator: 'delete',
@@ -823,32 +823,32 @@ class Plugin {
         motionArgs: { forward: false },
         operatorMotionArgs: { visualLine: true }
       }),
-      'vim-mode:substitute': h({
+      'vim:substitute': h({
         keys: 's',
         type: 'keyToKey',
         toKeys: 'cl',
         context: 'normal'
       }),
-      'vim-mode:substitute-visual': h({
+      'vim:substitute-visual': h({
         keys: 's',
         type: 'keyToKey',
         toKeys: 'c',
         context: 'visual'
       }),
-      'vim-mode:repeat': h({
+      'vim:repeat': h({
         keys: '.',
         type: 'action',
         action: 'repeatLastEdit'
       }),
 
-      'vim-mode:increase': h({
+      'vim:increase': h({
         keys: '<C-a>',
         type: 'action',
         action: 'incrementNumberToken',
         isEdit: true,
         actionArgs: { increase: true, backtrack: false }
       }),
-      'vim-mode:decrease': h({
+      'vim:decrease': h({
         keys: '<C-x>',
         type: 'action',
         action: 'incrementNumberToken',
@@ -856,14 +856,14 @@ class Plugin {
         actionArgs: { increase: false, backtrack: false }
       }),
 
-      'vim-mode:register-prefix': b({
+      'vim:register-prefix': b({
         keys: '"<character>',
         type: 'action',
         action: 'setRegister'
       }),
 
       // insert mode
-      'vim-mode:delete-to-beginning-of-word': h({
+      'vim:delete-to-beginning-of-word': h({
         keys: '<C-w>',
         type: 'operatorMotion',
         operator: 'delete',
@@ -873,7 +873,7 @@ class Plugin {
       }),
 
       // visual mode
-      'vim-mode:insert-at-start-of-target': h({
+      'vim:insert-at-start-of-target': h({
         keys: 'I',
         type: 'action',
         action: 'enterInsertMode',
@@ -881,7 +881,7 @@ class Plugin {
         actionArgs: { insertAt: 'startOfSelectedArea' },
         context: 'visual'
       }),
-      'vim-mode:insert-at-end-of-target': h({
+      'vim:insert-at-end-of-target': h({
         keys: 'A',
         type: 'action',
         action: 'enterInsertMode',
@@ -889,13 +889,13 @@ class Plugin {
         actionArgs: { insertAt: 'endOfSelectedArea' },
         context: 'visual'
       }),
-      'vim-mode:reverse-selections': h({
+      'vim:reverse-selections': h({
         keys: 'o',
         type: 'motion',
         motion: 'moveToOtherHighlightedEnd',
         context: 'visual'
       }),
-      'vim-mode:reverse-selections-at-same-line': h({
+      'vim:reverse-selections-at-same-line': h({
         keys: 'O',
         type: 'motion',
         motion: 'moveToOtherHighlightedEnd',
