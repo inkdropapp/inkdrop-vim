@@ -904,6 +904,34 @@ class Plugin {
       })
     }
     disposables.add(inkdrop.commands.add(wrapper, handlers))
+    disposables.add(
+      inkdrop.commands.add(document.querySelector('.mde-preview'), {
+        'vim:move-to-start-of-file': ({ target }) => {
+          target.scrollTop = 0
+        },
+        'vim:scroll-up': ({ target }) => {
+          target.scrollTop -= 30
+        },
+        'vim:scroll-down': ({ target }) => {
+          target.scrollTop += 30
+        },
+        'vim:scroll-half-screen-up': ({ target }) => {
+          target.scrollTop -= target.clientHeight / 2
+        },
+        'vim:scroll-half-screen-down': ({ target }) => {
+          target.scrollTop += target.clientHeight / 2
+        },
+        'vim:scroll-half-screen-up': ({ target }) => {
+          target.scrollTop -= target.clientHeight
+        },
+        'vim:scroll-half-screen-down': ({ target }) => {
+          target.scrollTop += target.clientHeight
+        },
+        'vim:move-to-line': ({ target }) => {
+          target.scrollTop = target.scrollHeight
+        }
+      })
+    )
     wrapper.addEventListener('textInput', this.handleEditorTextInput)
     wrapper.addEventListener('keydown', this.handleEditorKeyDown)
     disposables.add(
