@@ -12,8 +12,10 @@ Provides Vim modal control for Inkdrop, blending the best of Vim and Inkdrop.
 - Search history
 - Sort (`:sort`)
 - Marks (`,`)
-- `:global`
 - Cross-buffer yank/paste
+- Moving focus between panes (sidebar, note list bar, editor, note title) with `s h` / `s j` / `s k` / `s l`
+- Select next/prev item in note list bar (`j` / `k`)
+- Scroll markdown preview pane
 
 ## Install
 
@@ -60,6 +62,13 @@ Toggles HMTL preview.
 Toggles side-by-side mode.
 
 ## Changelog
+
+### 2.0.0
+
+- (Breaking) The command prefix has been changed from `vim-mode:` to `vim:` so that the keybindings are correctly listed in the plugin settings
+- Moving focus between panes (sidebar, note list bar, editor, note title) with `s h` / `s j` / `s k` / `s l`
+- Select next/prev item in note list bar (`j` / `k`)
+- Scroll markdown preview pane ([Thanks @trietphm](https://github.com/inkdropapp/inkdrop-vim/issues/13))
 
 ### 1.0.12
 
