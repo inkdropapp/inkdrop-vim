@@ -921,10 +921,10 @@ class Plugin {
         'vim:scroll-half-screen-down': ({ target }) => {
           target.scrollTop += target.clientHeight / 2
         },
-        'vim:scroll-half-screen-up': ({ target }) => {
+        'vim:scroll-full-screen-up': ({ target }) => {
           target.scrollTop -= target.clientHeight
         },
-        'vim:scroll-half-screen-down': ({ target }) => {
+        'vim:scroll-full-screen-down': ({ target }) => {
           target.scrollTop += target.clientHeight
         },
         'vim:move-to-line': ({ target }) => {
