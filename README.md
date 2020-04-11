@@ -63,6 +63,10 @@ Toggles side-by-side mode.
 
 ## Changelog
 
+### 2.0.1
+
+- Fix a bug where `vim:scroll-full-screen-up` and `vim:scroll-full-screen-down` not working (Thanks [@basyura](https://github.com/inkdropapp/inkdrop-vim/issues/13#issuecomment-612326857))
+
 ### 2.0.0
 
 - (Breaking) The command prefix has been changed from `vim-mode:` to `vim:` so that the keybindings are correctly listed in the plugin settings
