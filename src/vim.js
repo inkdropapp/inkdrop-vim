@@ -255,6 +255,18 @@ class Plugin {
         motion: 'moveByLines',
         motionArgs: { forward: true, linewise: true }
       }),
+      'vim:move-up-by-display-lines': h({
+        keys: 'gk',
+        type: 'motion',
+        motion: 'moveByDisplayLines',
+        motionArgs: { forward: false }
+      }),
+      'vim:move-down-by-display-lines': h({
+        keys: 'gj',
+        type: 'motion',
+        motion: 'moveByDisplayLines',
+        motionArgs: { forward: true }
+      }),
 
       'vim:move-to-next-word': h({
         keys: 'w',

@@ -16,6 +16,8 @@
     "up": "vim:move-up",
     "j": "vim:move-down",
     "down": "vim:move-down",
+    "g k": "vim:move-up-by-display-lines",
+    "g j": "vim:move-down-by-display-lines",
 
     "w": "vim:move-to-next-word",
     "W": "vim:move-to-next-whole-word",
