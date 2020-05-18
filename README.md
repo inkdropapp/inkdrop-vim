@@ -63,6 +63,10 @@ Toggles side-by-side mode.
 
 ## Changelog
 
+### 2.1.0
+
+- feat(motion): support moving cursor up/down by display lines (<kbd>g k</kbd> / <kbd>g j</kbd>) (Thanks [jolyon129](https://github.com/inkdropapp/inkdrop-vim/issues/16))
+
 ### 2.0.1
 
 - Fix a bug where `vim:scroll-full-screen-up` and `vim:scroll-full-screen-down` not working (Thanks [@basyura](https://github.com/inkdropapp/inkdrop-vim/issues/13#issuecomment-612326857))
