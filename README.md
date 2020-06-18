@@ -63,6 +63,10 @@ Toggles side-by-side mode.
 
 ## Changelog
 
+### 2.1.1
+
+- fix(keymap): change keybinding for `vim:move-to-mark` from <kbd>"</kbd> to <kbd>'</kbd> (Thanks [oniatsu-san](https://github.com/inkdropapp/inkdrop-vim/issues/18))
+
 ### 2.1.0
 
 - feat(motion): support moving cursor up/down by display lines (<kbd>g k</kbd> / <kbd>g j</kbd>) (Thanks [jolyon129](https://github.com/inkdropapp/inkdrop-vim/issues/16))
