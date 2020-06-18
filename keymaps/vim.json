@@ -84,7 +84,7 @@
 
     "m": "vim:mark",
     "`": "vim:move-to-mark-literal",
-    "\"": "vim:move-to-mark",
+    "'": "vim:move-to-mark",
 
     "f": "vim:find",
     "F": "vim:find-backwards",
