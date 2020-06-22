@@ -63,6 +63,10 @@ Toggles side-by-side mode.
 
 ## Changelog
 
+### 2.1.2
+
+- fix(keymap): remove keybindings of <kbd>s h</kbd>, <kbd>s k</kbd>, <kbd>s l</kbd> since those conflict with the default vim behavior of `s` (Thanks [oniatsu-san](https://github.com/inkdropapp/inkdrop-vim/issues/19))
+
 ### 2.1.1
 
 - fix(keymap): change keybinding for `vim:move-to-mark` from <kbd>"</kbd> to <kbd>'</kbd> (Thanks [oniatsu-san](https://github.com/inkdropapp/inkdrop-vim/issues/18))
