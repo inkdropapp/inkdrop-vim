@@ -13,7 +13,6 @@ Provides Vim modal control for Inkdrop, blending the best of Vim and Inkdrop.
 - Sort (`:sort`)
 - Marks (`,`)
 - Cross-buffer yank/paste
-- Moving focus between panes (sidebar, note list bar, editor, note title) with `s h` / `s j` / `s k` / `s l`
 - Select next/prev item in note list bar (`j` / `k`)
 - Scroll markdown preview pane
 
