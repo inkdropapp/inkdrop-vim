@@ -1,9 +1,7 @@
 {
   ".CodeMirror.vim-mode": {},
   ".CodeMirror.vim-mode.normal-mode textarea": {
-    "escape": "vim:reset-normal-mode",
-    "s h": "core:focus-note-list-bar",
-    "s k": "editor:title:focus"
+    "escape": "vim:reset-normal-mode"
   },
   ".CodeMirror.vim-mode:not(.insert-mode):not(.key-buffering) textarea": {
     "h": "vim:move-left",
@@ -157,17 +155,9 @@
     "s": "vim:substitute-visual",
     "S": "vim:substitute-line-visual"
   },
-  ".sidebar-menu": {
-    "s l": "core:focus-note-list-bar"
-  },
-  ".sidebar-book-filter-menu": {
-    "s l": "core:focus-note-list-bar"
-  },
   ".note-list-bar": {
     "k": "core:open-prev-note",
-    "j": "core:open-next-note",
-    "s l": "editor:focus",
-    "s h": "core:sidebar-focus"
+    "j": "core:open-next-note"
   },
   ".mde-preview": {
     "g g": "vim:move-to-start-of-file",
@@ -178,8 +168,6 @@
     "k": "vim:scroll-up",
     "j": "vim:scroll-down",
     "G": "vim:move-to-line",
-    "H": "vim:move-to-start-of-file",
-    "s h": "core:focus-note-list-bar",
-    "s k": "editor:title:focus"
+    "H": "vim:move-to-start-of-file"
   }
 }
