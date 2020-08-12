@@ -863,6 +863,7 @@ module.exports = function (CodeMirror) {
       exitVisualMode: exitVisualMode,
       exitInsertMode: exitInsertMode,
       clearInputState: clearInputState,
+      clearSearchHighlight: clearSearchHighlight,
 
       cmKeyToVimKey: cmKeyToVimKey
     }
