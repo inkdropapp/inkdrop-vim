@@ -11,7 +11,7 @@
     "dev": "babel src/ -s -d lib/ --watch"
   },
   "engines": {
-    "inkdrop": "^4.x"
+    "inkdrop": "^5.x"
   },
   "dependencies": {},
   "devDependencies": {
