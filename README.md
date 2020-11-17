@@ -62,6 +62,10 @@ Toggles side-by-side mode.
 
 ## Changelog
 
+### 2.1.4
+
+- fix(motion): text object manipulation not working for some tokens (Thanks [rcashie](https://github.com/inkdropapp/inkdrop-vim/issues/23))
+
 ### 2.1.2
 
 - fix(keymap): remove keybindings of <kbd>s h</kbd>, <kbd>s k</kbd>, <kbd>s l</kbd> since those conflict with the default vim behavior of `s` (Thanks [oniatsu-san](https://github.com/inkdropapp/inkdrop-vim/issues/19))
