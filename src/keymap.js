@@ -3526,8 +3526,8 @@ module.exports = function (CodeMirror) {
       // cursor is on a matching open bracket.
       var offset = curChar === openSym ? 1 : 0
 
-      start = cm.scanForBracket(Pos(cur.line, cur.ch + offset), -1, null, {'bracketRegex': bracketRegexp})
-      end = cm.scanForBracket(Pos(cur.line, cur.ch + offset), 1, null, {'bracketRegex': bracketRegexp})
+      start = cm.scanForBracket(Pos(cur.line, cur.ch + offset), -1, undefined, {'bracketRegex': bracketRegexp})
+      end = cm.scanForBracket(Pos(cur.line, cur.ch + offset), 1, undefined, {'bracketRegex': bracketRegexp})
 
       if (!start || !end) {
         return { start: cur, end: cur }
