@@ -62,6 +62,10 @@ Toggles side-by-side mode.
 
 ## Changelog
 
+### 2.1.5
+
+- fix(motion): enter/space/arrow keys not working as expected while key buffering (Thanks [rcashie](https://github.com/inkdropapp/inkdrop-vim/issues/24))
+
 ### 2.1.4
 
 - fix(motion): text object manipulation not working for some tokens (Thanks [rcashie](https://github.com/inkdropapp/inkdrop-vim/issues/23))
