@@ -106,6 +106,14 @@
     "i": "vim:text-object-manipulation-inner",
     "a": "vim:text-object-manipulation"
   },
+  ".CodeMirror.vim-mode.normal-mode.key-buffering-operator textarea": {
+    "enter": "vim:move-down",
+    "space": "vim:move-right",
+    "up": "vim:move-up",
+    "down": "vim:move-down",
+    "right": "vim:move-right",
+    "left": "vim:move-left"
+  },
   ".CodeMirror.vim-mode.normal-mode:not(.key-buffering):not(.visual-mode) textarea": {
     "i": "vim:activate-insert-mode",
     "I": "vim:insert-at-beginning-of-line",
