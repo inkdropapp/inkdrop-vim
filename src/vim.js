@@ -1045,7 +1045,12 @@ class Plugin {
     const keyName = normalizeKeyName(event.key)
     const cm = this.getCodeMirror()
     const vim = this.vim.maybeInitVimState(cm)
-    const isNumberic = keyName.match(/^\d$/)
+    const isNumberic =
+      !event.ctrlKey &&
+      !event.altKey &&
+      !event.metaKey &&
+      !event.shiftKey &&
+      keyName.match(/^\d$/);
 
     if (this.isBufferingKey()) {
       logger.debug('handle key buffering:', keyName, event)
