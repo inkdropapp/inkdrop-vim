@@ -62,6 +62,10 @@ Toggles side-by-side mode.
 
 ## Changelog
 
+### 2.1.6
+
+- fix(motion): Ignore numeric keys when a modifier key is pressed (Thanks [Basyura](https://github.com/inkdropapp/inkdrop-vim/pull/25))
+
 ### 2.1.5
 
 - fix(motion): enter/space/arrow keys not working as expected while key buffering (Thanks [rcashie](https://github.com/inkdropapp/inkdrop-vim/issues/24))
