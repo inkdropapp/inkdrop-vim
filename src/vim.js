@@ -1045,12 +1045,12 @@ class Plugin {
     const keyName = normalizeKeyName(event.key)
     const cm = this.getCodeMirror()
     const vim = this.vim.maybeInitVimState(cm)
-    const isNumberic =
+    const isNumeric =
       !event.ctrlKey &&
       !event.altKey &&
       !event.metaKey &&
       !event.shiftKey &&
-      keyName.match(/^\d$/);
+      keyName.match(/^\d$/)
 
     if (this.isBufferingKey()) {
       logger.debug('handle key buffering:', keyName, event)
@@ -1073,7 +1073,7 @@ class Plugin {
       ) {
         const { inputState } = vim
         const hasOperatorOrMotion = inputState.motion || inputState.operator
-        if (keyName.length === 1 && (!isNumberic || !hasOperatorOrMotion)) {
+        if (keyName.length === 1 && (!isNumeric || !hasOperatorOrMotion)) {
           inputState.selectedCharacter = event.key
           inputState.keyBuffer = ''
 
