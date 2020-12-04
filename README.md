@@ -62,6 +62,10 @@ Toggles side-by-side mode.
 
 ## Changelog
 
+### 2.1.7
+
+- fix(typo): Number keys not working as expected (Thanks [FORTRAN](https://forum.inkdrop.app/t/vim-plugin/2228/2))
+
 ### 2.1.6
 
 - fix(motion): Ignore numeric keys when a modifier key is pressed (Thanks [Basyura](https://github.com/inkdropapp/inkdrop-vim/pull/25))
