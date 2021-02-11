@@ -60,6 +60,24 @@ Toggles HMTL preview.
 
 Toggles side-by-side mode.
 
+### Define custom Ex commands
+
+You can extend Ex commands by writing [init.js](https://docs.inkdrop.app/manual/the-init-file).
+The following example defines `:find` command:
+
+```js
+inkdrop.onEditorLoad(() => {
+  var CodeMirror = require("codemirror");
+  CodeMirror.Vim.defineEx("find", "f", (cm, event) => {
+    inkdrop.commands.dispatch(document.body, "core:find-global");
+    if (event.argString)
+      inkdrop.commands.dispatch(document.body, "core:search-notes", {
+        keyword: event.argString.trim(),
+      });
+  });
+});
+```
+
 ## Changelog
 
 ### 2.1.7
