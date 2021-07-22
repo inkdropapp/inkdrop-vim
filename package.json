@@ -4,7 +4,10 @@
   "version": "2.1.7",
   "description": "vim keybindings",
   "keywords": [],
-  "repository": "https://github.com/inkdropapp/inkdrop-vim",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/inkdropapp/inkdrop-vim.git"
+  },
   "license": "MIT",
   "scripts": {
     "build": "babel src/ -d lib/",
