@@ -1,20 +1,11 @@
 root: true
-plugins:
-  - prettier
 extends:
-  - plugin:prettier/recommended
-parser: babel-eslint
+  - prettier
+parser: "@babel/eslint-parser"
 env: {}
 globals: {}
 rules:
   no-useless-escape: 0
-  prettier/prettier:
-    - 2
-    -
-      trailingComma: none
-      singleQuote: true
-      semi: false
-      arrowParens: avoid
   prefer-const: 2
   no-unused-vars:
     - 2
