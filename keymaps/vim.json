@@ -150,7 +150,9 @@
     "escape": "vim:exit-insert-mode"
   },
   ".CodeMirror.vim-mode.visual-mode textarea": {
-    "escape": "vim:exit-visual-mode",
+    "escape": "vim:exit-visual-mode"
+  },
+  ".CodeMirror.vim-mode.visual-mode:not(.key-buffering) textarea": {
     "\"": "vim:register-prefix",
     "I": "vim:insert-at-start-of-target",
     "A": "vim:insert-at-end-of-target",
