@@ -80,6 +80,10 @@ inkdrop.onEditorLoad(() => {
 
 ## Changelog
 
+### 2.1.9
+
+- fix(keymap): Commands should not work while buffering key in visual mode (Thanks [Kazuhiro](https://forum.inkdrop.app/t/minor-issue-in-vim-plugin/2702))
+
 ### 2.1.7
 
 - fix(typo): Number keys not working as expected (Thanks [FORTRAN](https://forum.inkdrop.app/t/vim-plugin/2228/2))
