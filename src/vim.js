@@ -1073,7 +1073,10 @@ class Plugin {
       ) {
         const { inputState } = vim
         const hasOperatorOrMotion = inputState.motion || inputState.operator
-        if (keyName.length === 1 && (!isNumeric || !hasOperatorOrMotion)) {
+        if (
+          (keyName.length === 1 || keyName === 'space') &&
+          (!isNumeric || !hasOperatorOrMotion)
+        ) {
           inputState.selectedCharacter = event.key
           inputState.keyBuffer = ''
 
