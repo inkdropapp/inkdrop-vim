@@ -80,6 +80,10 @@ inkdrop.onEditorLoad(() => {
 
 ## Changelog
 
+### 2.1.10
+
+- fix(buffering): space key should be processed as a character input (Thanks [Chris](https://github.com/inkdropapp/inkdrop-vim/issues/29))
+
 ### 2.1.9
 
 - fix(keymap): Commands should not work while buffering key in visual mode (Thanks [Kazuhiro](https://forum.inkdrop.app/t/minor-issue-in-vim-plugin/2702))
