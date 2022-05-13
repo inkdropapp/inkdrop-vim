@@ -1052,12 +1052,13 @@ class Plugin {
       !event.shiftKey &&
       keyName.match(/^\d$/)
 
+    const keyBinding = inkdrop.keymaps.findKeyBindings({
+      keystrokes: keyName,
+      target: cm.getInputField()
+    })
+
     if (this.isBufferingKey()) {
       logger.debug('handle key buffering:', keyName, event)
-      const keyBinding = inkdrop.keymaps.findKeyBindings({
-        keystrokes: keyName,
-        target: cm.getInputField()
-      })
       const b = cm
         .getInputField()
         .webkitMatchesSelector(
@@ -1097,7 +1098,9 @@ class Plugin {
       }
     } else if (!this.isInsertMode()) {
       if (isNumeric) {
-        vim.inputState.pushRepeatDigit(keyName)
+        if (keyBinding.length === 0) {
+          vim.inputState.pushRepeatDigit(keyName)
+        }
       } else {
         // push key buffer to the repeat digit
         const keys = vim.inputState.keyBuffer
