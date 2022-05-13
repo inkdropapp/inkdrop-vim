@@ -81,4 +81,4 @@ inkdrop.onEditorLoad(() => {
 ## Changelog
 
 See the [GitHub releases](https://github.com/inkdropapp/inkdrop-vim/releases) for an overview of what changed in each update.
-See [CHANGELOG.md](https://github.com/inkdropapp/inkdrop-vim/CHANGELOG.md) for older releases.
+See [CHANGELOG.md](https://github.com/inkdropapp/inkdrop-vim/blob/master/CHANGELOG.md) for older releases.
