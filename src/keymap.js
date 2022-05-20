@@ -3514,8 +3514,9 @@ module.exports = function (CodeMirror) {
           curEnd = Pos(curStart.line, replaceTo)
         }
         if (replaceWith == '\n') {
-          if (!vim.visualMode) cm.replaceRange('', curStart, curEnd)
-          // special case, where vim help says to replace by just one line-break
+          if (!vim.visualMode)
+            cm.replaceRange('', curStart, curEnd)
+            // special case, where vim help says to replace by just one line-break
           ;(
             CodeMirror.commands.newlineAndIndentContinueComment ||
             CodeMirror.commands.newlineAndIndent
