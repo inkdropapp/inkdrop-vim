@@ -1715,8 +1715,8 @@ module.exports = function (CodeMirror) {
               clipboard.writeText(reg.keyBuffer[0])
               break
             case 'delete':
-              clipboard.writeText(text)
             case 'change':
+              clipboard.writeText(text)
               if (text.indexOf('\n') == -1) {
                 // Delete less than 1 line. Update the small delete register.
                 this.registers['-'] = new Register(text, linewise)
