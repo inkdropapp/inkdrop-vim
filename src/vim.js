@@ -46,6 +46,28 @@ class Plugin {
     }
   }
 
+  normalizeKeyName(key) {
+    switch (key) {
+      case 'Enter':
+        return 'enter'
+      case ' ':
+        return 'space'
+      case 'ArrowRight':
+        return 'right'
+      case 'ArrowLeft':
+        return 'left'
+      case 'ArrowUp':
+        return 'up'
+      case 'ArrowDown':
+        return 'down'
+      default:
+        if (key.match(/[A-Z]/)) {
+          return `shift-${key}`
+        }
+        return key
+    }
+  }
+
   startBufferingKey(command, customBufferingModeClass) {
     const wrapper = this.getCodeMirror().getWrapperElement()
     logger.debug('Start key buffering')
@@ -192,8 +214,9 @@ class Plugin {
         ) {
           this.startBufferingKey(e => {
             const el = cm.getInputField()
+            const keyName = this.normalizeKeyName(e.key)
             const keyBinding = inkdrop.keymaps.findKeyBindings({
-              keystrokes: e.key,
+              keystrokes: keyName,
               target: el
             })
             if (keyBinding.length > 0) {
@@ -1029,25 +1052,7 @@ class Plugin {
   }
 
   handleEditorKeyDown = event => {
-    const normalizeKeyName = key => {
-      switch (key) {
-        case 'Enter':
-          return 'enter'
-        case ' ':
-          return 'space'
-        case 'ArrowRight':
-          return 'right'
-        case 'ArrowLeft':
-          return 'left'
-        case 'ArrowUp':
-          return 'up'
-        case 'ArrowDown':
-          return 'down'
-        default:
-          return key
-      }
-    }
-    const keyName = normalizeKeyName(event.key)
+    const keyName = this.normalizeKeyName(event.key)
     const cm = this.getCodeMirror()
     const vim = this.vim.maybeInitVimState(cm)
     const isNumeric =
