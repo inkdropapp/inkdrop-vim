@@ -103,7 +103,7 @@
 
     ":": "vim:ex-command"
   },
-  ".CodeMirror.vim-mode:not(.insert-mode):not(.key-buffering):not(.key-buffering-command) textarea": {
+  ".CodeMirror.vim-mode:not(.insert-mode):not(.key-buffering-command) textarea": {
     "i": "vim:text-object-manipulation-inner",
     "a": "vim:text-object-manipulation"
   },
@@ -113,9 +113,7 @@
     "up": "vim:move-up",
     "down": "vim:move-down",
     "right": "vim:move-right",
-    "left": "vim:move-left",
-    "g g": "vim:move-to-start-of-file",
-    "G": "vim:move-to-line"
+    "left": "vim:move-left"
   },
   ".CodeMirror.vim-mode.normal-mode:not(.key-buffering):not(.visual-mode) textarea": {
     "i": "vim:activate-insert-mode",

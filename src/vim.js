@@ -61,7 +61,7 @@ class Plugin {
       case 'ArrowDown':
         return 'down'
       default:
-        if (key.match(/[A-Z]/)) {
+        if (key.match(/^[A-Z]$/)) {
           return `shift-${key}`
         }
         return key
@@ -227,6 +227,9 @@ class Plugin {
             )
             if (keyBinding.length > 0) {
               inkdrop.commands.dispatch(el, keyBinding[0].command)
+              return true
+            } else {
+              return false
             }
           }, 'operator')
           if (e.originalEvent) {
@@ -1083,8 +1086,9 @@ class Plugin {
       exactMatchCandidates,
       target
     )
-    logger.debug('currentKeyStroke:', currentKeyStroke)
-    logger.debug('exactMatches:', exactMatches)
+    logger.debug('handleEditorKeyDown: currentKeyStroke:', currentKeyStroke)
+    logger.debug('handleEditorKeyDown: exactMatches:', exactMatches)
+    logger.debug('handleEditorKeyDown: partialMatches:', partialMatches)
 
     if (this.isBufferingKey()) {
       logger.debug('handleEditorKeyDown: handle key buffering:', keyName, event)
@@ -1094,7 +1098,6 @@ class Plugin {
           '.CodeMirror.vim-mode:not(.insert-mode) textarea'
         )
       logger.debug('handleEditorKeyDown: keybinding check:', exactMatches, b)
-      logger.debug('handleEditorKeyDown: partialMatches:', partialMatches)
 
       if (
         keyName !== 'Ctrl' &&
@@ -1105,7 +1108,7 @@ class Plugin {
         const { inputState } = vim
         const hasOperatorOrMotion = inputState.motion || inputState.operator
         if (
-          (keyName.length === 1 || keyName === 'space') &&
+          (event.key.length === 1 || keyName === 'space') &&
           (!isNumeric || !hasOperatorOrMotion)
         ) {
           inputState.selectedCharacter = event.key
@@ -1116,14 +1119,11 @@ class Plugin {
             this.stopBufferingKey()
 
             if (typeof pendingCommand === 'function') {
-              pendingCommand(event)
+              if (pendingCommand(event)) {
+                event.stopPropagation()
+                event.preventDefault()
+              }
             }
-
-            event.stopPropagation()
-            event.preventDefault()
-          }
-          if (exactMatches.length > 0) {
-            this.stopBufferingKey()
           }
         } else if (isNumeric) {
           vim.inputState.pushRepeatDigit(keyName)
