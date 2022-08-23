@@ -56,7 +56,7 @@
     "z R": "editor:unfold-all",
     "z c": "editor:fold-current-row",
     "z o": "editor:unfold-current-row",
-    "G": "vim:move-to-line",
+    "shift-G": "vim:move-to-line",
     "H": "vim:move-to-top-of-screen",
     "L": "vim:move-to-bottom-of-screen",
     "M": "vim:move-to-middle-of-screen",
@@ -103,7 +103,7 @@
 
     ":": "vim:ex-command"
   },
-  ".CodeMirror.vim-mode:not(.insert-mode):not(.key-buffering-command) textarea": {
+  ".CodeMirror.vim-mode:not(.insert-mode):not(.key-buffering):not(.key-buffering-command) textarea": {
     "i": "vim:text-object-manipulation-inner",
     "a": "vim:text-object-manipulation"
   },
@@ -113,7 +113,9 @@
     "up": "vim:move-up",
     "down": "vim:move-down",
     "right": "vim:move-right",
-    "left": "vim:move-left"
+    "left": "vim:move-left",
+    "g g": "vim:move-to-start-of-file",
+    "G": "vim:move-to-line"
   },
   ".CodeMirror.vim-mode.normal-mode:not(.key-buffering):not(.visual-mode) textarea": {
     "i": "vim:activate-insert-mode",

@@ -219,6 +219,12 @@ class Plugin {
               keystrokes: keyName,
               target: el
             })
+            console.log(
+              'Handle custom pending command for operator:',
+              command,
+              keyName,
+              keyBinding
+            )
             if (keyBinding.length > 0) {
               inkdrop.commands.dispatch(el, keyBinding[0].command)
             }
@@ -1062,19 +1068,33 @@ class Plugin {
       !event.shiftKey &&
       keyName.match(/^\d$/)
 
-    const keyBinding = inkdrop.keymaps.findKeyBindings({
-      keystrokes: keyName,
-      target: cm.getInputField()
-    })
+    const target = cm.getInputField()
+    const currentKeyStroke = [
+      ...inkdrop.keymaps.queuedKeystrokes.filter(k => !k.startsWith('^')),
+      keyName
+    ]
+    const { partialMatchCandidates, exactMatchCandidates } =
+      inkdrop.keymaps.findMatchCandidates(currentKeyStroke)
+    const partialMatches = inkdrop.keymaps.findPartialMatches(
+      partialMatchCandidates,
+      target
+    )
+    const exactMatches = inkdrop.keymaps.findExactMatches(
+      exactMatchCandidates,
+      target
+    )
+    logger.debug('currentKeyStroke:', currentKeyStroke)
+    logger.debug('exactMatches:', exactMatches)
 
     if (this.isBufferingKey()) {
-      logger.debug('handle key buffering:', keyName, event)
+      logger.debug('handleEditorKeyDown: handle key buffering:', keyName, event)
       const b = cm
         .getInputField()
         .webkitMatchesSelector(
           '.CodeMirror.vim-mode:not(.insert-mode) textarea'
         )
-      logger.debug('keybinding check:', keyBinding, b)
+      logger.debug('handleEditorKeyDown: keybinding check:', exactMatches, b)
+      logger.debug('handleEditorKeyDown: partialMatches:', partialMatches)
 
       if (
         keyName !== 'Ctrl' &&
@@ -1091,7 +1111,7 @@ class Plugin {
           inputState.selectedCharacter = event.key
           inputState.keyBuffer = ''
 
-          if (keyBinding.length === 0) {
+          if (exactMatches.length === 0 && partialMatches.length === 0) {
             const { pendingCommand } = this
             this.stopBufferingKey()
 
@@ -1102,13 +1122,16 @@ class Plugin {
             event.stopPropagation()
             event.preventDefault()
           }
+          if (exactMatches.length > 0) {
+            this.stopBufferingKey()
+          }
         } else if (isNumeric) {
           vim.inputState.pushRepeatDigit(keyName)
         }
       }
     } else if (!this.isInsertMode()) {
       if (isNumeric) {
-        if (keyBinding.length === 0) {
+        if (exactMatches.length === 0) {
           vim.inputState.pushRepeatDigit(keyName)
         }
       } else {
