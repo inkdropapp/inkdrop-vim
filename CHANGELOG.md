@@ -1,3 +1,7 @@
+### 2.2.0
+
+- feat(motion): Support moitons like yG/ygg/dG/dgg (Thanks [jamalmoir](https://github.com/inkdropapp/inkdrop-vim/issues/39))
+
 ### 2.1.10
 
 - fix(buffering): space key should be processed as a character input (Thanks [Chris](https://github.com/inkdropapp/inkdrop-vim/issues/29))
