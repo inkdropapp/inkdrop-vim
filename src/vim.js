@@ -219,12 +219,6 @@ class Plugin {
               keystrokes: keyName,
               target: el
             })
-            console.log(
-              'Handle custom pending command for operator:',
-              command,
-              keyName,
-              keyBinding
-            )
             if (keyBinding.length > 0) {
               inkdrop.commands.dispatch(el, keyBinding[0].command)
               return true
