@@ -269,12 +269,24 @@ class Plugin {
         motion: 'moveByCharacters',
         motionArgs: { forward: true }
       }),
-      'vim:move-up': h({
-        keys: 'k',
-        type: 'motion',
-        motion: 'moveByLines',
-        motionArgs: { forward: false, linewise: true }
-      }),
+      'vim:move-up': (command => {
+        return e => {
+          const cur = cm.getCursor()
+          if (cur.line === 0 && cur.ch === 0) {
+            e.stopPropagation()
+            inkdrop.commands.dispatch(document.body, 'editor:title:focus')
+          } else {
+            command(e)
+          }
+        }
+      })(
+        h({
+          keys: 'k',
+          type: 'motion',
+          motion: 'moveByLines',
+          motionArgs: { forward: false, linewise: true }
+        })
+      ),
       'vim:move-down': h({
         keys: 'j',
         type: 'motion',
