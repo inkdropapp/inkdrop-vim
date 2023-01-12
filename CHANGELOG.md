@@ -1,3 +1,7 @@
+### 2.2.1
+
+- feat(motion): Jump to note title on invoking `vim:move-up` at the first line and char
+
 ### 2.2.0
 
 - feat(motion): Support moitons like yG/ygg/dG/dgg (Thanks [jamalmoir](https://github.com/inkdropapp/inkdrop-vim/issues/39))
