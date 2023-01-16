@@ -67,15 +67,15 @@ The following example defines `:find` command:
 
 ```js
 inkdrop.onEditorLoad(() => {
-  var CodeMirror = require("codemirror");
-  CodeMirror.Vim.defineEx("find", "f", (cm, event) => {
-    inkdrop.commands.dispatch(document.body, "core:find-global");
+  var CodeMirror = require('codemirror')
+  CodeMirror.Vim.defineEx('find', 'f', (cm, event) => {
+    inkdrop.commands.dispatch(document.body, 'core:find-global')
     if (event.argString)
-      inkdrop.commands.dispatch(document.body, "core:search-notes", {
-        keyword: event.argString.trim(),
-      });
-  });
-});
+      inkdrop.commands.dispatch(document.body, 'core:search-notes', {
+        keyword: event.argString.trim()
+      })
+  })
+})
 ```
 
 ## Changelog
