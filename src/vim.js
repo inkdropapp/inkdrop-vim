@@ -5,6 +5,16 @@ import CodeMirror from 'codemirror'
 import { clipboard } from 'electron'
 
 class Plugin {
+  config = {
+    seamlessJumpToTitle: {
+      title: 'Seamlessly jump to note title',
+      type: 'boolean',
+      description:
+        'Focus jumps from the editor to the note title bar by `vim:move-up` command',
+      default: false
+    }
+  }
+
   activate() {
     this.vim = vimKeymap(CodeMirror)
     if (inkdrop.isEditorActive()) {
@@ -271,8 +281,9 @@ class Plugin {
       }),
       'vim:move-up': (command => {
         return e => {
+          const seamlessJumpToTitleEnabled = inkdrop.config.get('vim.seamlessJumpToTitle')
           const cur = cm.getCursor()
-          if (cur.line === 0 && cur.ch === 0) {
+          if (cur.line === 0 && cur.ch === 0 && seamlessJumpToTitleEnabled) {
             e.stopPropagation()
             inkdrop.commands.dispatch(document.body, 'editor:title:focus')
           } else {
