@@ -1,3 +1,7 @@
+### 2.2.2
+
+- fix(option): The seamless focus jump from the editor to the note title bar is now an option and disabled by default
+
 ### 2.2.1
 
 - feat(motion): Jump to note title on invoking `vim:move-up` at the first line and char

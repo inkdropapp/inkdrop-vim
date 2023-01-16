@@ -78,6 +78,14 @@ inkdrop.onEditorLoad(() => {
 })
 ```
 
+## Options
+
+![options](./docs/options.png)
+
+### Seamlessly jump to note title
+
+Whether moving focus seamlessly from the editor to the note title bar by `vim:move-up` command
+
 ## Changelog
 
 See the [GitHub releases](https://github.com/inkdropapp/inkdrop-vim/releases) for an overview of what changed in each update.
