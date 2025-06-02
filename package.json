@@ -1,27 +1,23 @@
 {
   "name": "vim",
-  "main": "./lib/vim",
-  "version": "2.2.2",
+  "main": "./src/vim",
+  "version": "3.0.0",
   "description": "vim keybindings",
   "keywords": [],
   "repository": "https://github.com/inkdropapp/inkdrop-vim",
   "license": "MIT",
   "scripts": {
-    "build": "babel src/ -d lib/",
-    "dev": "babel src/ -s -d lib/ --watch"
+    "lint": "eslint ."
   },
   "engines": {
     "inkdrop": "^5.x"
   },
   "devDependencies": {
-    "@babel/cli": "^7.16.0",
-    "@babel/core": "^7.16.0",
-    "@babel/eslint-parser": "^7.16.3",
-    "@babel/plugin-proposal-class-properties": "^7.16.0",
-    "@babel/preset-env": "^7.16.4",
-    "@babel/preset-react": "^7.16.0",
-    "eslint": "^8.3.0",
-    "eslint-config-prettier": "^8.3.0",
-    "prettier": "^2.5.0"
+    "eslint": "^9.28.0",
+    "eslint-config-prettier": "^10.1.5",
+    "prettier": "^3.5.3"
+  },
+  "dependencies": {
+    "@replit/codemirror-vim": "^6.3.0"
   }
 }
