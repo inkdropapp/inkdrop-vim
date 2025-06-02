@@ -4,11 +4,7 @@ const {
   registerClipboardTextOnFocus,
   registerClipboardText
 } = require('./clipboard')
-
-console.log('module.paths:', module.paths)
-console.log('view', require.resolve('@codemirror/view'))
-console.log('view::', require('@codemirror/view'))
-console.log('registerClipboardTextOnFocus:', registerClipboardTextOnFocus())
+require('./ex')
 
 class Plugin {
   config = {
