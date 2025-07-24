@@ -10,7 +10,7 @@
     "lint": "eslint ."
   },
   "engines": {
-    "inkdrop": "^5.x"
+    "inkdrop": "^6.x"
   },
   "devDependencies": {
     "eslint": "^9.28.0",
