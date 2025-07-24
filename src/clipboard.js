@@ -2,6 +2,25 @@ const { vim, Vim } = require('@replit/codemirror-vim')
 const { clipboard } = require('electron')
 const { EditorView } = require('@codemirror/view')
 
+/** @arg {Pos} cur1  @arg {Pos} cur2 @return {boolean}*/
+function cursorIsBefore(cur1, cur2) {
+  if (cur1.line < cur2.line) {
+    return true
+  }
+  if (cur1.line == cur2.line && cur1.ch < cur2.ch) {
+    return true
+  }
+  return false
+}
+/** @arg {Pos} cur1 @arg {Pos} cur2  @return {Pos}*/
+function cursorMin(cur1, cur2) {
+  if (arguments.length > 2) {
+    // @ts-ignore
+    cur2 = cursorMin.apply(undefined, Array.prototype.slice.call(arguments, 1))
+  }
+  return cursorIsBefore(cur1, cur2) ? cur1 : cur2
+}
+
 Vim.defineOperator('yank', (cm, args, ranges, oldAnchor) => {
   const vim = cm.state.vim
   const text = cm.getSelection()
@@ -15,6 +34,7 @@ Vim.defineOperator('yank', (cm, args, ranges, oldAnchor) => {
     args.linewise,
     vim.visualBlock
   )
+  console.log('Yanked text:', text)
   clipboard.writeText(text)
 
   return endPos

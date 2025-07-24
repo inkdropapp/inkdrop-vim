@@ -1,5 +1,4 @@
 {
-  ".CodeMirror.vim-mode": {},
   ".note-list-bar": {
     "k": "core:open-prev-note",
     "j": "core:open-next-note"
