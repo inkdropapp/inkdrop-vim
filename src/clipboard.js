@@ -2,43 +2,34 @@ const { vim, Vim } = require('@replit/codemirror-vim')
 const { clipboard } = require('electron')
 const { EditorView } = require('@codemirror/view')
 
-/** @arg {Pos} cur1  @arg {Pos} cur2 @return {boolean}*/
-function cursorIsBefore(cur1, cur2) {
-  if (cur1.line < cur2.line) {
-    return true
-  }
-  if (cur1.line == cur2.line && cur1.ch < cur2.ch) {
-    return true
-  }
-  return false
-}
-/** @arg {Pos} cur1 @arg {Pos} cur2  @return {Pos}*/
-function cursorMin(cur1, cur2) {
-  if (arguments.length > 2) {
-    // @ts-ignore
-    cur2 = cursorMin.apply(undefined, Array.prototype.slice.call(arguments, 1))
-  }
-  return cursorIsBefore(cur1, cur2) ? cur1 : cur2
-}
-
-Vim.defineOperator('yank', (cm, args, ranges, oldAnchor) => {
-  const vim = cm.state.vim
-  const text = cm.getSelection()
-  const endPos = vim.visualMode
-    ? cursorMin(vim.sel.anchor, vim.sel.head, ranges[0].head, ranges[0].anchor)
-    : oldAnchor
-  Vim.getRegisterController().pushText(
-    args.registerName,
-    'yank',
+const origResetVimGlobalState = Vim.resetVimGlobalState_
+Vim.resetVimGlobalState_ = () => {
+  origResetVimGlobalState.call(Vim)
+  const state = Vim.getVimGlobalState_()
+  const origPushText = state.registerController.pushText
+  state.registerController.pushText = (
+    registerName,
+    operator,
     text,
-    args.linewise,
-    vim.visualBlock
-  )
-  console.log('Yanked text:', text)
-  clipboard.writeText(text)
+    linewise,
+    blockwise
+  ) => {
+    // console.log('pushText', registerName, operator, text, linewise, blockwise)
+    if (!registerName) {
+      clipboard.writeText(text)
+    }
+    origPushText.call(
+      state.registerController,
+      registerName,
+      operator,
+      text,
+      linewise,
+      blockwise
+    )
+  }
+}
 
-  return endPos
-})
+Vim.resetVimGlobalState_()
 
 const registerClipboardText = () => {
   const text = clipboard.readText()
