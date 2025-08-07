@@ -3,7 +3,7 @@
     "k": "core:open-prev-note",
     "j": "core:open-next-note"
   },
-  ".mde-preview": {
+  ".mde-preview-container": {
     "g g": "vim:move-to-start-of-file",
     "ctrl-u": "vim:scroll-half-screen-up",
     "ctrl-b": "vim:scroll-full-screen-up",

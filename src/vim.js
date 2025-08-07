@@ -4,6 +4,7 @@ const {
   registerClipboardTextOnFocus,
   registerClipboardText
 } = require('./clipboard')
+const { bindPreviewVimCommands } = require('./preview')
 require('./ex')
 
 class Plugin {
@@ -22,12 +23,17 @@ class Plugin {
     this.extension = [vim(), registerClipboardTextOnFocus()]
     inkdrop.store.dispatch(actions.mde.addExtension(this.extension))
     inkdrop.window.on('focus', this.handleAppFocus)
+
+    this.unbindPreviewViewCommands = bindPreviewVimCommands()
   }
 
   deactivate() {
     inkdrop.store.dispatch(actions.mde.removeExtension(this.extension))
     this.extension = null
     inkdrop.window.off('focus', this.handleAppFocus)
+
+    this.unbindPreviewViewCommands()
+    this.unbindPreviewViewCommands = null
   }
 
   handleAppFocus() {
