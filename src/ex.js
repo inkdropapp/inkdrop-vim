@@ -1,4 +1,4 @@
-const { vim, Vim } = require('@replit/codemirror-vim')
+const { Vim } = require('@replit/codemirror-vim')
 
 Vim.defineEx('write', 'w', () => {
   inkdrop.commands.dispatch(document.body, 'core:save-note')

@@ -5,6 +5,7 @@ const {
   registerClipboardText
 } = require('./clipboard')
 const { bindPreviewVimCommands } = require('./preview')
+const { disableScrollIntoView } = require('./scroll')
 require('./ex')
 
 class Plugin {
@@ -23,8 +24,13 @@ class Plugin {
     this.extension = [vim(), registerClipboardTextOnFocus()]
     inkdrop.store.dispatch(actions.mde.addExtension(this.extension))
     inkdrop.window.on('focus', this.handleAppFocus)
-
     this.unbindPreviewViewCommands = bindPreviewVimCommands()
+
+    this.sub = inkdrop.onEditorLoad(this.handleEditorLoaded.bind(this))
+    setTimeout(() => {
+      const editorView = inkdrop.getActiveEditor()
+      if (editorView) this.handleEditorLoaded(editorView)
+    }, 100)
   }
 
   deactivate() {
@@ -34,10 +40,15 @@ class Plugin {
 
     this.unbindPreviewViewCommands()
     this.unbindPreviewViewCommands = null
+    this.sub.dispose()
   }
 
   handleAppFocus() {
     registerClipboardText()
+  }
+
+  handleEditorLoaded(view) {
+    disableScrollIntoView(view)
   }
 }
 
