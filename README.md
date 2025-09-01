@@ -28,7 +28,7 @@ You can customize keybindings in your [init.js](https://developers.inkdrop.app/g
 For example,
 
 ```js
-inkdrop.onEditorLoad(() => {
+function configureKeyBindings() {
   const Vim = inkdrop.packages.getLoadedPackage('vim').mainModule.Vim
 
   // Map keys
@@ -36,6 +36,12 @@ inkdrop.onEditorLoad(() => {
   Vim.map('Y', 'y$') // in normal mode
   // Unmap keys
   Vim.unmap('jj', 'insert')
+}
+
+const editor = inkdrop.getActiveEditor()
+if (editor) configureKeyBindings()
+inkdrop.onEditorLoad(() => {
+  configureKeyBindings()
 })
 ```
 
