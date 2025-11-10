@@ -4,6 +4,7 @@ const {
   registerClipboardTextOnFocus,
   registerClipboardText
 } = require('./clipboard')
+const { editorInitHandler } = require('./utils')
 const { bindPreviewVimCommands } = require('./preview')
 const { disableScrollIntoView } = require('./scroll')
 require('./ex')
@@ -24,7 +25,8 @@ class Plugin {
     this.extension = [
       vim(),
       registerClipboardTextOnFocus(),
-      disableScrollIntoView
+      disableScrollIntoView,
+      editorInitHandler
     ]
     inkdrop.store.dispatch(actions.mde.addExtension(this.extension))
     inkdrop.window.on('focus', this.handleAppFocus)
