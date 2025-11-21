@@ -1,0 +1,9 @@
+.editor .mde .cm-editor {
+  .cm-scroller.cm-vimMode .cm-fat-cursor {
+    background: var(--editor-caret-color) !important;
+  }
+  &:not(.cm-focused) .cm-scroller.cm-vimMode .cm-fat-cursor {
+    background: transparent !important;
+    outline: solid 1px var(--editor-caret-color) !important;
+  }
+}

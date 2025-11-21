@@ -24,19 +24,26 @@ ipm install vim
 
 ## Key customizations
 
-Default vim keymaps are defined [here](https://github.com/inkdropapp/inkdrop-vim/blob/master/keymaps/vim.json) and you can override them in your `keymap.cson` file.
+You can customize keybindings in your [init.js](https://developers.inkdrop.app/guides/the-init-file).
+For example,
 
-CSS selectors for each mode:
+```js
+function configureKeyBindings() {
+  const Vim = inkdrop.packages.getLoadedPackage('vim').mainModule.Vim
 
-- Not insert mode: `.CodeMirror.vim-mode:not(.insert-mode):not(.key-buffering) textarea`
-- Normal mode: `.CodeMirror.vim-mode.normal-mode:not(.key-buffering) textarea`
-- Insert mode: `.CodeMirror.vim-mode.insert-mode textarea`
-- Replace mode: `.CodeMirror.vim-mode.replace-mode textarea`
-- Visual mode: `.CodeMirror.vim-mode.visual-mode:not(.key-buffering) textarea`
+  // Map keys
+  Vim.map('jj', '<Esc>', 'insert') // in insert mode
+  Vim.map('Y', 'y$') // in normal mode
+  // Unmap keys
+  Vim.unmap('jj', 'insert')
+}
 
-You can check current keybindings on the _Keybindings_ pane on preferences window:
-
-![Preferences](https://raw.githubusercontent.com/inkdropapp/inkdrop-vim/master/docs/preferences.png)
+const editor = inkdrop.getActiveEditor()
+if (editor) configureKeyBindings()
+inkdrop.onEditorLoad(() => {
+  configureKeyBindings()
+})
+```
 
 ## Ex Commands
 
@@ -67,8 +74,8 @@ The following example defines `:find` command:
 
 ```js
 inkdrop.onEditorLoad(() => {
-  var CodeMirror = require('codemirror')
-  CodeMirror.Vim.defineEx('find', 'f', (cm, event) => {
+  const Vim = inkdrop.packages.getLoadedPackage('vim').mainModule.Vim
+  Vim.defineEx('find', 'f', (cm, event) => {
     inkdrop.commands.dispatch(document.body, 'core:find-global')
     if (event.argString)
       inkdrop.commands.dispatch(document.body, 'core:search-notes', {
@@ -78,15 +85,6 @@ inkdrop.onEditorLoad(() => {
 })
 ```
 
-## Options
-
-![options](./docs/options.png)
-
-### Seamlessly jump to note title
-
-Whether moving focus seamlessly from the editor to the note title bar by `vim:move-up` command
-
 ## Changelog
 
 See the [GitHub releases](https://github.com/inkdropapp/inkdrop-vim/releases) for an overview of what changed in each update.
-See [CHANGELOG.md](https://github.com/inkdropapp/inkdrop-vim/blob/master/CHANGELOG.md) for older releases.
