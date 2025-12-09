@@ -16,7 +16,10 @@ Vim.resetVimGlobalState_ = () => {
   ) => {
     // console.log('pushText', registerName, operator, text, linewise, blockwise)
     if (!registerName) {
-      clipboard.writeText(text)
+      const currentText = clipboard.readText()
+      if (currentText !== text) {
+        clipboard.writeText(text)
+      }
     }
     origPushText.call(
       state.registerController,
