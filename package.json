@@ -1,7 +1,7 @@
 {
   "name": "vim",
   "main": "./src/vim",
-  "version": "3.0.1",
+  "version": "3.0.2",
   "description": "vim keybindings",
   "keywords": [],
   "repository": "https://github.com/inkdropapp/inkdrop-vim",
