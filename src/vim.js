@@ -10,13 +10,6 @@ require('./ex')
 
 class Plugin {
   config = {
-    seamlessJumpToTitle: {
-      title: 'Seamlessly jump to note title',
-      type: 'boolean',
-      description:
-        'Focus jumps from the editor to the note title bar by `vim:move-up` command',
-      default: false
-    },
     useSystemClipboard: {
       title: 'Use system clipboard',
       type: 'boolean',
