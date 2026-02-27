@@ -45,6 +45,12 @@ inkdrop.onEditorLoad(() => {
 })
 ```
 
+## Options
+
+### Use system clipboard
+
+By default, vim yank/delete operations sync with the system clipboard (like `clipboard=unnamed` in vim). You can disable this in Preferences > Plugins > vim so that vim operations use an internal register only, matching standard vim behavior. Cmd+C / Cmd+V (or Ctrl+C / Ctrl+V) will still use the system clipboard as usual.
+
 ## Ex Commands
 
 ### `:w`, `:write`
