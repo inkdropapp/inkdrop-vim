@@ -16,6 +16,13 @@ class Plugin {
       description:
         'Focus jumps from the editor to the note title bar by `vim:move-up` command',
       default: false
+    },
+    useSystemClipboard: {
+      title: 'Use system clipboard',
+      type: 'boolean',
+      description:
+        'Sync vim yank/delete with the system clipboard. When disabled, vim operations use an internal register only (like standard vim without clipboard=unnamed).',
+      default: true
     }
   }
 

@@ -2,6 +2,9 @@ const { vim, Vim } = require('@replit/codemirror-vim')
 const { clipboard } = require('electron')
 const { EditorView } = require('@codemirror/view')
 
+const isSystemClipboardEnabled = () =>
+  inkdrop.config.get('vim.useSystemClipboard', true)
+
 const origResetVimGlobalState = Vim.resetVimGlobalState_
 Vim.resetVimGlobalState_ = () => {
   origResetVimGlobalState.call(Vim)
@@ -14,8 +17,7 @@ Vim.resetVimGlobalState_ = () => {
     linewise,
     blockwise
   ) => {
-    // console.log('pushText', registerName, operator, text, linewise, blockwise)
-    if (!registerName) {
+    if (!registerName && isSystemClipboardEnabled()) {
       const currentText = clipboard.readText()
       if (currentText !== text) {
         clipboard.writeText(text)
@@ -35,6 +37,9 @@ Vim.resetVimGlobalState_ = () => {
 Vim.resetVimGlobalState_()
 
 const registerClipboardText = () => {
+  if (!isSystemClipboardEnabled()) {
+    return
+  }
   const text = clipboard.readText()
   if (text) {
     const isLinewise = text.indexOf('\n') >= 0
