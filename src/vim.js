@@ -23,14 +23,14 @@ class Plugin {
     this.Vim = Vim
     this.extension = [vim(), registerClipboardTextOnFocus(), editorInitHandler]
     inkdrop.store.dispatch(actions.mde.addExtension(this.extension))
-    inkdrop.window.on('focus', this.handleAppFocus)
+    this.sub = inkdrop.window.onFocus(this.handleAppFocus)
     this.unbindPreviewViewCommands = bindPreviewVimCommands()
   }
 
   deactivate() {
     inkdrop.store.dispatch(actions.mde.removeExtension(this.extension))
     this.extension = null
-    inkdrop.window.off('focus', this.handleAppFocus)
+    this.sub.dispose()
 
     this.unbindPreviewViewCommands()
     this.unbindPreviewViewCommands = null
