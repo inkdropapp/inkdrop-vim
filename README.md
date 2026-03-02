@@ -51,6 +51,10 @@ inkdrop.onEditorLoad(() => {
 
 By default, vim yank/delete operations sync with the system clipboard (like `clipboard=unnamed` in vim). You can disable this in Preferences > Plugins > vim so that vim operations use an internal register only, matching standard vim behavior. Cmd+C / Cmd+V (or Ctrl+C / Ctrl+V) will still use the system clipboard as usual.
 
+### Relative line numbers
+
+When enabled in Preferences > Plugins > vim, the editor shows relative line numbers. The current line displays its absolute line number, while all other lines show their distance from the cursor. This is equivalent to `set relativenumber` in vim.
+
 ## Ex Commands
 
 ### `:w`, `:write`
