@@ -37,6 +37,10 @@ class Plugin {
       'vim.relativeLineNumbers',
       this.handleRelativeLineNumbersChange
     )
+    this.lineNumbersConfigSub = inkdrop.config.observe(
+      'editor.lineNumbers',
+      this.handleRelativeLineNumbersChange
+    )
   }
 
   deactivate() {
@@ -52,13 +56,20 @@ class Plugin {
       this.configSub.dispose()
       this.configSub = null
     }
+    if (this.lineNumbersConfigSub) {
+      this.lineNumbersConfigSub.dispose()
+      this.lineNumbersConfigSub = null
+    }
   }
 
   handleAppFocus() {
     registerClipboardText()
   }
 
-  handleRelativeLineNumbersChange = enabled => {
+  handleRelativeLineNumbersChange = () => {
+    const enabled =
+      inkdrop.config.get('vim.relativeLineNumbers') &&
+      inkdrop.config.get('editor.lineNumbers')
     if (enabled) {
       inkdrop.store.dispatch(actions.mde.addExtension(relativeLineNumbers))
     } else {
