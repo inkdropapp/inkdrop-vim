@@ -77,6 +77,18 @@ Toggles HMTL preview.
 
 Toggles side-by-side mode.
 
+### `:cmd {command}`
+
+Dispatches an arbitrary Inkdrop command. This is useful for mapping keys to any Inkdrop command without defining a custom Ex command:
+
+```js
+const Vim = inkdrop.packages.getLoadedPackage('vim').mainModule.Vim
+Vim.map('<C-n>', ':cmd core:navigate-forward<CR>')
+Vim.map('<C-o>', ':cmd core:navigate-back<CR>')
+```
+
+You can also run it directly in Ex mode — `:cmd core:find-global`.
+
 ### Define custom Ex commands
 
 You can extend Ex commands by writing [init.js](https://docs.inkdrop.app/manual/the-init-file).
