@@ -15,3 +15,9 @@ Vim.defineEx('preview', 'p', () => {
 Vim.defineEx('side-by-side', 'side', () => {
   inkdrop.commands.dispatch(document.body, 'view:toggle-side-by-side')
 })
+Vim.defineEx('cmd', 'cmd', (cm, params) => {
+  const command = params.args?.join(' ')
+  if (command) {
+    inkdrop.commands.dispatch(cm.getWrapperElement(), command)
+  }
+})
