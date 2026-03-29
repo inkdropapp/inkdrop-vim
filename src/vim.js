@@ -30,7 +30,6 @@ class Plugin {
   activate() {
     this.Vim = Vim
     this.extension = [vim(), registerClipboardTextOnFocus(), editorInitHandler]
-    inkdrop.store.dispatch(actions.mde.addExtension(this.extension))
     this.sub = inkdrop.window.onFocus(this.handleAppFocus)
     this.unbindPreviewViewCommands = bindPreviewVimCommands()
     this.configSub = inkdrop.config.observe(
@@ -41,11 +40,11 @@ class Plugin {
       'editor.lineNumbers',
       this.handleRelativeLineNumbersChange
     )
+    inkdrop.onEditorLoad(this.extendEditor)
   }
 
   deactivate() {
-    inkdrop.store.dispatch(actions.mde.removeExtension(this.extension))
-    inkdrop.store.dispatch(actions.mde.removeExtension(relativeLineNumbers))
+    this.unextendEditor()
     this.extension = null
     this.sub.dispose()
 
@@ -62,19 +61,46 @@ class Plugin {
     }
   }
 
+  extendEditor = () => {
+    inkdrop.commands.dispatch(document.body, 'editor:add-extension', {
+      extension: this.extension
+    })
+    this.handleRelativeLineNumbersChange()
+  }
+
+  unextendEditor = () => {
+    inkdrop.commands.dispatch(document.body, 'editor:remove-extension', {
+      extension: this.extension
+    })
+    this.toggleRelativeLineNumbers(false)
+  }
+
+  isRelativeLineNumbersEnabled() {
+    return (
+      inkdrop.config.get('vim.relativeLineNumbers') &&
+      inkdrop.config.get('editor.lineNumbers')
+    )
+  }
+
+  toggleRelativeLineNumbers(enabled) {
+    if (enabled) {
+      inkdrop.commands.dispatch(document.body, 'editor:add-extension', {
+        extension: relativeLineNumbers
+      })
+    } else {
+      inkdrop.commands.dispatch(document.body, 'editor:remove-extension', {
+        extension: relativeLineNumbers
+      })
+    }
+  }
+
   handleAppFocus() {
     registerClipboardText()
   }
 
   handleRelativeLineNumbersChange = () => {
-    const enabled =
-      inkdrop.config.get('vim.relativeLineNumbers') &&
-      inkdrop.config.get('editor.lineNumbers')
-    if (enabled) {
-      inkdrop.store.dispatch(actions.mde.addExtension(relativeLineNumbers))
-    } else {
-      inkdrop.store.dispatch(actions.mde.removeExtension(relativeLineNumbers))
-    }
+    const enabled = this.isRelativeLineNumbersEnabled()
+    this.toggleRelativeLineNumbers(enabled)
   }
 }
 
