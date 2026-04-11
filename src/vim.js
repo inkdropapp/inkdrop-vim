@@ -8,6 +8,7 @@ const { editorInitHandler, vimModeClass } = require('./utils')
 const { bindPreviewVimCommands } = require('./preview')
 const { relativeLineNumbers } = require('./relative-line-numbers')
 require('./ex')
+require('./keymaps')
 
 class Plugin {
   config = {
