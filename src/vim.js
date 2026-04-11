@@ -4,7 +4,7 @@ const {
   registerClipboardTextOnFocus,
   registerClipboardText
 } = require('./clipboard')
-const { editorInitHandler } = require('./utils')
+const { editorInitHandler, vimModeClass } = require('./utils')
 const { bindPreviewVimCommands } = require('./preview')
 const { relativeLineNumbers } = require('./relative-line-numbers')
 require('./ex')
@@ -29,7 +29,7 @@ class Plugin {
 
   activate() {
     this.Vim = Vim
-    this.extension = [vim(), registerClipboardTextOnFocus(), editorInitHandler]
+    this.extension = [vim(), registerClipboardTextOnFocus(), editorInitHandler, vimModeClass]
     this.sub = inkdrop.window.onFocus(this.handleAppFocus)
     this.unbindPreviewViewCommands = bindPreviewVimCommands()
     this.configSub = inkdrop.config.observe(
