@@ -12,9 +12,6 @@ on:
 
 jobs:
   claude-review:
-    # Skip review for bot-authored PRs (e.g. Renovate, Dependabot)
-    if: github.event.pull_request.user.type != 'Bot'
-
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -23,13 +20,19 @@ jobs:
       id-token: write
 
     steps:
+      - name: Skip review for bot-authored PRs
+        if: github.event.pull_request.user.type == 'Bot'
+        run: echo "Skipping Claude review for bot PR by ${{ github.event.pull_request.user.login }}"
+
       - name: Checkout repository
+        if: github.event.pull_request.user.type != 'Bot'
         uses: actions/checkout@v4
         with:
           fetch-depth: 1
 
       - name: Run Claude Code Review
         id: claude-review
+        if: github.event.pull_request.user.type != 'Bot'
         uses: anthropics/claude-code-action@v1
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
