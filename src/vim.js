@@ -30,7 +30,12 @@ class Plugin {
 
   activate() {
     this.Vim = Vim
-    this.extension = [vim(), registerClipboardTextOnFocus(), editorInitHandler, vimModeClass]
+    this.extension = [
+      vim(),
+      registerClipboardTextOnFocus(),
+      editorInitHandler,
+      vimModeClass
+    ]
     this.sub = inkdrop.window.onFocus(this.handleAppFocus)
     this.unbindPreviewViewCommands = bindPreviewVimCommands()
     this.configSub = inkdrop.config.observe(
@@ -41,7 +46,7 @@ class Plugin {
       'editor.lineNumbers',
       this.handleRelativeLineNumbersChange
     )
-    inkdrop.onEditorLoad(this.extendEditor)
+    inkdrop.ensureEditorLoaded(this.extendEditor)
   }
 
   deactivate() {
