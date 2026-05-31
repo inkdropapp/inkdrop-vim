@@ -1,3 +1,5 @@
+const { getEnv } = require('./env')
+
 function bindPreviewVimCommands() {
   let sub = null
 
@@ -5,7 +7,7 @@ function bindPreviewVimCommands() {
     if (sub) sub.dispose()
     if (!target) return
 
-    sub = inkdrop.commands.add(target, {
+    sub = getEnv().commands.add(target, {
       'vim:move-to-start-of-file': ({ target }) => {
         target.scrollTop = 0
       },

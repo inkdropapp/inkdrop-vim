@@ -1,23 +1,24 @@
 const { Vim } = require('@replit/codemirror-vim')
+const { getEnv } = require('./env')
 
 Vim.defineEx('write', 'w', () => {
-  inkdrop.commands.dispatch(document.body, 'core:save-note')
+  getEnv().commands.dispatch(document.body, 'core:save-note')
 })
 Vim.defineEx('next', 'n', () => {
-  inkdrop.commands.dispatch(document.body, 'core:open-next-note')
+  getEnv().commands.dispatch(document.body, 'core:open-next-note')
 })
 Vim.defineEx('prev', '', () => {
-  inkdrop.commands.dispatch(document.body, 'core:open-prev-note')
+  getEnv().commands.dispatch(document.body, 'core:open-prev-note')
 })
 Vim.defineEx('preview', 'p', () => {
-  inkdrop.commands.dispatch(document.body, 'view:toggle-preview')
+  getEnv().commands.dispatch(document.body, 'view:toggle-preview')
 })
 Vim.defineEx('side-by-side', 'side', () => {
-  inkdrop.commands.dispatch(document.body, 'view:toggle-side-by-side')
+  getEnv().commands.dispatch(document.body, 'view:toggle-side-by-side')
 })
 Vim.defineEx('cmd', 'cmd', (cm, params) => {
   const command = params.args?.join(' ')
   if (command) {
-    inkdrop.commands.dispatch(cm.getWrapperElement(), command)
+    getEnv().commands.dispatch(cm.getWrapperElement(), command)
   }
 })

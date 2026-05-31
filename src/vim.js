@@ -7,6 +7,7 @@ const {
 const { editorInitHandler, vimModeClass } = require('./utils')
 const { bindPreviewVimCommands } = require('./preview')
 const { relativeLineNumbers } = require('./relative-line-numbers')
+const { setEnv, getEnv } = require('./env')
 require('./ex')
 require('./keymaps')
 
@@ -28,7 +29,8 @@ class Plugin {
     }
   }
 
-  activate() {
+  activate(env) {
+    setEnv(env)
     this.Vim = Vim
     this.extension = [
       vim(),
@@ -36,17 +38,17 @@ class Plugin {
       editorInitHandler,
       vimModeClass
     ]
-    this.sub = inkdrop.window.onFocus(this.handleAppFocus)
+    this.sub = env.window.onFocus(this.handleAppFocus)
     this.unbindPreviewViewCommands = bindPreviewVimCommands()
-    this.configSub = inkdrop.config.observe(
+    this.configSub = env.config.observe(
       'vim.relativeLineNumbers',
       this.handleRelativeLineNumbersChange
     )
-    this.lineNumbersConfigSub = inkdrop.config.observe(
+    this.lineNumbersConfigSub = env.config.observe(
       'editor.lineNumbers',
       this.handleRelativeLineNumbersChange
     )
-    inkdrop.ensureEditorLoaded(this.extendEditor)
+    env.ensureEditorLoaded(this.extendEditor)
   }
 
   deactivate() {
@@ -65,36 +67,39 @@ class Plugin {
       this.lineNumbersConfigSub.dispose()
       this.lineNumbersConfigSub = null
     }
+
+    setEnv(undefined)
   }
 
   extendEditor = () => {
-    inkdrop.commands.dispatch(document.body, 'editor:add-extension', {
+    getEnv().commands.dispatch(document.body, 'editor:add-extension', {
       extension: this.extension
     })
     this.handleRelativeLineNumbersChange()
   }
 
   unextendEditor = () => {
-    inkdrop.commands.dispatch(document.body, 'editor:remove-extension', {
+    getEnv().commands.dispatch(document.body, 'editor:remove-extension', {
       extension: this.extension
     })
     this.toggleRelativeLineNumbers(false)
   }
 
   isRelativeLineNumbersEnabled() {
+    const env = getEnv()
     return (
-      inkdrop.config.get('vim.relativeLineNumbers') &&
-      inkdrop.config.get('editor.lineNumbers')
+      env.config.get('vim.relativeLineNumbers') &&
+      env.config.get('editor.lineNumbers')
     )
   }
 
   toggleRelativeLineNumbers(enabled) {
     if (enabled) {
-      inkdrop.commands.dispatch(document.body, 'editor:add-extension', {
+      getEnv().commands.dispatch(document.body, 'editor:add-extension', {
         extension: relativeLineNumbers
       })
     } else {
-      inkdrop.commands.dispatch(document.body, 'editor:remove-extension', {
+      getEnv().commands.dispatch(document.body, 'editor:remove-extension', {
         extension: relativeLineNumbers
       })
     }
