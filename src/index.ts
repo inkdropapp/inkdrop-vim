@@ -1,18 +1,19 @@
-const { vim, Vim } = require('@replit/codemirror-vim')
-const { actions } = require('inkdrop')
-const {
-  registerClipboardTextOnFocus,
-  registerClipboardText
-} = require('./clipboard')
-const { editorInitHandler, vimModeClass } = require('./utils')
-const { bindPreviewVimCommands } = require('./preview')
-const { relativeLineNumbers } = require('./relative-line-numbers')
-const { setEnv, getEnv } = require('./env')
-require('./ex')
-require('./keymaps')
+import type { Extension } from '@codemirror/state'
+import type { ConfigSchema, Environment, IInkdropPlugin } from '@inkdropapp/types'
+import { Vim, vim } from '@replit/codemirror-vim'
 
-class Plugin {
-  config = {
+import { registerClipboardText, registerClipboardTextOnFocus } from './clipboard'
+import { getEnv, setEnv } from './env'
+import { bindPreviewVimCommands } from './preview'
+import { relativeLineNumbers } from './relative-line-numbers'
+import { editorInitHandler, vimModeClass } from './utils'
+import './ex'
+import './keymaps'
+
+type Subscription = { dispose(): void }
+
+class VimPlugin implements IInkdropPlugin {
+  config: Record<string, ConfigSchema> = {
     relativeLineNumbers: {
       title: 'Relative line numbers',
       type: 'boolean',
@@ -29,15 +30,17 @@ class Plugin {
     }
   }
 
-  activate(env) {
+  Vim: typeof Vim | null = null
+  extension: Extension[] | null = null
+  sub: Subscription | null = null
+  unbindPreviewViewCommands: (() => void) | null = null
+  configSub: Subscription | null = null
+  lineNumbersConfigSub: Subscription | null = null
+
+  activate(env: Environment) {
     setEnv(env)
     this.Vim = Vim
-    this.extension = [
-      vim(),
-      registerClipboardTextOnFocus(),
-      editorInitHandler,
-      vimModeClass
-    ]
+    this.extension = [vim(), registerClipboardTextOnFocus(), editorInitHandler, vimModeClass]
     this.sub = env.window.onFocus(this.handleAppFocus)
     this.unbindPreviewViewCommands = bindPreviewVimCommands()
     this.configSub = env.config.observe(
@@ -54,19 +57,17 @@ class Plugin {
   deactivate() {
     this.unextendEditor()
     this.extension = null
-    this.sub.dispose()
+    this.sub?.dispose()
+    this.sub = null
 
-    this.unbindPreviewViewCommands()
+    this.unbindPreviewViewCommands?.()
     this.unbindPreviewViewCommands = null
 
-    if (this.configSub) {
-      this.configSub.dispose()
-      this.configSub = null
-    }
-    if (this.lineNumbersConfigSub) {
-      this.lineNumbersConfigSub.dispose()
-      this.lineNumbersConfigSub = null
-    }
+    this.configSub?.dispose()
+    this.configSub = null
+
+    this.lineNumbersConfigSub?.dispose()
+    this.lineNumbersConfigSub = null
 
     setEnv(undefined)
   }
@@ -87,22 +88,14 @@ class Plugin {
 
   isRelativeLineNumbersEnabled() {
     const env = getEnv()
-    return (
-      env.config.get('vim.relativeLineNumbers') &&
-      env.config.get('editor.lineNumbers')
-    )
+    return env.config.get('vim.relativeLineNumbers') && env.config.get('editor.lineNumbers')
   }
 
-  toggleRelativeLineNumbers(enabled) {
-    if (enabled) {
-      getEnv().commands.dispatch(document.body, 'editor:add-extension', {
-        extension: relativeLineNumbers
-      })
-    } else {
-      getEnv().commands.dispatch(document.body, 'editor:remove-extension', {
-        extension: relativeLineNumbers
-      })
-    }
+  toggleRelativeLineNumbers(enabled: boolean) {
+    const command = enabled ? 'editor:add-extension' : 'editor:remove-extension'
+    getEnv().commands.dispatch(document.body, command, {
+      extension: relativeLineNumbers
+    })
   }
 
   handleAppFocus() {
@@ -110,9 +103,8 @@ class Plugin {
   }
 
   handleRelativeLineNumbersChange = () => {
-    const enabled = this.isRelativeLineNumbersEnabled()
-    this.toggleRelativeLineNumbers(enabled)
+    this.toggleRelativeLineNumbers(this.isRelativeLineNumbersEnabled())
   }
 }
 
-module.exports = new Plugin()
+export default new VimPlugin()

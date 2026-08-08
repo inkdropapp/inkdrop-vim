@@ -1,5 +1,6 @@
-const { Vim } = require('@replit/codemirror-vim')
-const { getEnv } = require('./env')
+import { Vim } from '@replit/codemirror-vim'
+
+import { getEnv } from './env'
 
 Vim.defineEx('write', 'w', () => {
   getEnv().commands.dispatch(document.body, 'core:save-note')

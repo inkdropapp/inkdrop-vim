@@ -1,23 +1,30 @@
 {
   "name": "vim",
-  "main": "./src/vim",
   "version": "3.1.4",
   "description": "vim keybindings",
   "keywords": [],
-  "repository": "https://github.com/inkdropapp/inkdrop-vim",
   "license": "MIT",
+  "repository": "https://github.com/inkdropapp/inkdrop-vim",
+  "main": "./lib/index",
   "scripts": {
-    "lint": "eslint ."
+    "dev": "tsdown --watch",
+    "build": "tsdown",
+    "format": "oxfmt",
+    "lint": "oxlint",
+    "typecheck": "tsc --noEmit",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "@codemirror/state": "^6.7.1",
+    "@codemirror/view": "^6.43.8",
+    "@inkdropapp/types": "^0.0.10",
+    "@replit/codemirror-vim": "^6.4.0",
+    "oxfmt": "^0.62.0",
+    "oxlint": "^1.77.0",
+    "tsdown": "^0.22.14",
+    "typescript": "^7.0.2"
   },
   "engines": {
     "inkdrop": "^6.x"
-  },
-  "devDependencies": {
-    "eslint": "^10.4.0",
-    "eslint-config-prettier": "^10.1.8",
-    "prettier": "^3.8.3"
-  },
-  "dependencies": {
-    "@replit/codemirror-vim": "^6.3.0"
   }
 }

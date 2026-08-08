@@ -1,0 +1,13 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "plugins": ["unicorn", "oxc"],
+  "categories": {
+    "correctness": "error"
+  },
+  "rules": {
+    "no-useless-escape": "off",
+    "prefer-const": "error",
+    "no-unused-vars": "off"
+  },
+  "ignorePatterns": ["lib/**", "node_modules/**"]
+}
