@@ -1,5 +1,6 @@
-const { Vim } = require('@replit/codemirror-vim')
-const { getEnv } = require('./env')
+import { Vim } from '@replit/codemirror-vim'
+
+import { getEnv } from './env'
 
 Vim.defineAction('completion-selection-down', cm => {
   getEnv().commands.dispatch(cm.getWrapperElement(), 'editor:move-completion-selection-down')
