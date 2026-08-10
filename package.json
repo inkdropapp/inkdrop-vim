@@ -19,7 +19,7 @@
     "@codemirror/view": "^6.43.8",
     "@inkdropapp/types": "^0.0.10",
     "@replit/codemirror-vim": "^6.4.0",
-    "oxfmt": "^0.62.0",
+    "oxfmt": "^0.63.0",
     "oxlint": "^1.77.0",
     "tsdown": "^0.22.14",
     "typescript": "^7.0.2"
