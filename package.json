@@ -21,7 +21,7 @@
     "@replit/codemirror-vim": "^6.4.0",
     "oxfmt": "^0.67.0",
     "oxlint": "^1.77.0",
-    "tsdown": "^0.22.14",
+    "tsdown": "^0.23.0",
     "typescript": "^7.0.2"
   },
   "engines": {
