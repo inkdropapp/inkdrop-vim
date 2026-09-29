@@ -1,4 +1,16 @@
 {
+  ".sidebar-menu": {
+    "k": "core:sidebar-select-prev-item",
+    "j": "core:sidebar-select-next-item",
+    "l": "core:sidebar-expand-item",
+    "h": "core:sidebar-collapse-item"
+  },
+  ".sidebar-workspace-menu": {
+    "k": "core:sidebar-select-prev-item",
+    "j": "core:sidebar-select-next-item",
+    "l": "core:sidebar-expand-item",
+    "h": "core:sidebar-collapse-item"
+  },
   ".note-list-bar": {
     "k": "core:open-prev-note",
     "j": "core:open-next-note"
