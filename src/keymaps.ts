@@ -15,9 +15,5 @@ Vim.mapCommand('<C-p>', 'action', 'completion-selection-up', {}, { context: 'ins
 
 Vim.defineAction('toggle-inline-code', cm => {
   getEnv().commands.dispatch(cm.getWrapperElement(), 'core:toggle-inline-code')
-  const { anchor, head } = cm.listSelections()[0]
-  const isForward = anchor.line < head.line || (anchor.line === head.line && anchor.ch <= head.ch)
-  Vim.exitVisualMode(cm, false)
-  cm.setCursor(isForward ? anchor : head)
 })
 Vim.mapCommand('`', 'action', 'toggle-inline-code', {}, { context: 'visual' })
