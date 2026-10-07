@@ -15,11 +15,11 @@ importers:
         specifier: ^6.43.8
         version: 6.43.13
       '@inkdropapp/types':
-        specifier: ^0.0.10
-        version: 0.0.10
+        specifier: ^0.1.0
+        version: 0.1.1
       '@replit/codemirror-vim':
         specifier: ^6.4.0
-        version: 6.4.0(@codemirror/commands@6.10.4)(@codemirror/language@6.12.4)(@codemirror/search@6.7.1)(@codemirror/state@6.7.6)(@codemirror/view@6.43.13)
+        version: 6.4.0(@codemirror/commands@6.11.1)(@codemirror/language@6.12.4)(@codemirror/search@6.7.2)(@codemirror/state@6.7.6)(@codemirror/view@6.43.13)
       oxfmt:
         specifier: ^0.72.0
         version: 0.72.0
@@ -35,14 +35,14 @@ importers:
 
 packages:
 
-  '@codemirror/commands@6.10.4':
-    resolution: {integrity: sha512-Ryk9y9T0FFVF0cUGhAknveAyUOl/A1qReTFi+qPKtOh2Z9F4AUBz3XOrYD4ZEgZirdugVzHvd/2/Wcwy5OliTg==}
+  '@codemirror/commands@6.11.1':
+    resolution: {integrity: sha512-O/4hG3SC1YwcmQ0d2UVNDs+AsaNWd1iHVxbTeEBuqH+6bExAiPK3iS/BvpY6rZGURALv4ZD3sIgcCmRvw3ehBg==}
 
   '@codemirror/language@6.12.4':
     resolution: {integrity: sha512-1q4PaT+o6PbgpkJt4Q8Fv5XJxTy4FUZ4MWETtyiDw3J0Pyr9E2vqcKL+k9wcvjNTIsauxvE7OfmWj3FRPHQ76A==}
 
-  '@codemirror/search@6.7.1':
-    resolution: {integrity: sha512-uMe5UO6PamJtSHrXhhHOzSX3ReWtiJrva6GnPMwSOrZtiExb5X5eExhr2OUZQVvdxPsKpY3Ro2mFbQadpPWmHA==}
+  '@codemirror/search@6.7.2':
+    resolution: {integrity: sha512-gUYkYhT2+n/+VGZ+8EzE5WFkYZUZYm1VOKDudIsNqh42uRVQJ0a6Yss9sdKT3MeOYfuL1N6AZA57oza0Oyr0LA==}
 
   '@codemirror/state@6.7.6':
     resolution: {integrity: sha512-kAz+AncRtKuIknedxT1bq4XwXv4UowhbkHU1myPrtVb/jZtImWuV5BXzv5vK6i3kYACsdiZiQKFQQ5Mq7elW8w==}
@@ -50,8 +50,8 @@ packages:
   '@codemirror/view@6.43.13':
     resolution: {integrity: sha512-sihaFrUzAsYBQsL9J2t69y8nfMQGwcYmggAZsk+kjPbjYZMyuf2hU8tUNTZ+P+isb6XRr8JE22TZlJxBoVdH1A==}
 
-  '@inkdropapp/types@0.0.10':
-    resolution: {integrity: sha512-DICNcH8NfpZGTbme3cHyf6BDmMmnWPZp2rQ8ADHEO0uQFetiWoN7EuNOX+HInSRVptrjtgfhWKDUDGSENEFm/Q==}
+  '@inkdropapp/types@0.1.1':
+    resolution: {integrity: sha512-dKM/NaesznvjTVAmhcBi5L+K8ZjyReO8/OorFGpK4gUXG+egGas0Kve8HfSdqHXPHflFNepbD5NG+u0htBUrrQ==}
 
   '@lezer/common@1.5.2':
     resolution: {integrity: sha512-sxQE460fPZyU3sdc8lafxiPwJHBzZRy/udNFynGQky1SePYBdhkBl1kOagA9uT3pxR8K09bOrmTUqA9wb/PjSQ==}
@@ -423,8 +423,8 @@ packages:
   '@types/event-kit@2.4.4':
     resolution: {integrity: sha512-VWkabnFFzPMOf+Nm1fnyJTdQDQsX/UqS6B/Ucwa4fpDcHVy/lh3vjLW4AP4ozHMaZCHP6GWKhd3FzMyfyU3KfA==}
 
-  '@types/react@19.2.18':
-    resolution: {integrity: sha512-AnzbBERsrLKtk2XSfTbYRLjQPdy116Sty4q+T+Bp3IC4l6jNBvreVPAHmpq9qhXQM7CXZPjLVmGMw9sy+hxQ3w==}
+  '@types/react@19.3.0':
+    resolution: {integrity: sha512-N0rFCuH9YoxG9/m61l9MfpJKfmLOVU0em7ipIz6TRgSSkvReLB9vL85GB+yr8Bs5leqpvg96JSwF4ZS1s4viQg==}
 
   '@typescript/typescript-aix-ppc64@7.0.2':
     resolution: {integrity: sha512-MTKKkWB7p/0E9xi1d1tHtZ5PiLkGEMIq88pK2CubZjOsLtYTLqhgIgi6zepFa+9GHZ6h05NMCkQxGKiPXMxXtQ==}
@@ -743,8 +743,13 @@ packages:
     resolution: {integrity: sha512-NkJQA7oZ4YHQhd2+H3BoRFKF3d/XNsiKpHZCQEMH9pDX27hQQLsTyOocyRgaIVtf8gHX3Nt3LPkR4e5EdtPAGQ==}
     engines: {node: ^22.18.0 || >=24.0.0}
 
-  inkdrop-model@2.13.0:
-    resolution: {integrity: sha512-KLaBwwKI6PY4qDnaEOCn045b+XC0q2Q7MYIyGDMntwtuA6uEYtGFcwjfrOGqnCW55w8i9MGKK9U8vx6a8U0RAw==}
+  inkdrop-model@3.0.0:
+    resolution: {integrity: sha512-KsS+T4uBPNESgVuXzb6t7fNNoOJTg38W0ljqBQynI17geilB+H1nIBfJxjliaNaraf53vuGIwXG0KAkkrVUNHg==}
+    peerDependencies:
+      ajv: ^8.20.0
+    peerDependenciesMeta:
+      ajv:
+        optional: true
 
   lru-cache@11.5.2:
     resolution: {integrity: sha512-4pfM1Ff0x50o0tQwb5ucw/RzNyD0/YJME6IVcStalZuMWxdt3sR3huStTtxz4PUmvZfRguvDejasvQ2kifR11g==}
@@ -908,7 +913,7 @@ packages:
 
 snapshots:
 
-  '@codemirror/commands@6.10.4':
+  '@codemirror/commands@6.11.1':
     dependencies:
       '@codemirror/language': 6.12.4
       '@codemirror/state': 6.7.6
@@ -924,7 +929,7 @@ snapshots:
       '@lezer/lr': 1.4.10
       style-mod: 4.1.3
 
-  '@codemirror/search@6.7.1':
+  '@codemirror/search@6.7.2':
     dependencies:
       '@codemirror/state': 6.7.6
       '@codemirror/view': 6.43.13
@@ -941,18 +946,20 @@ snapshots:
       style-mod: 4.1.3
       w3c-keyname: 2.2.8
 
-  '@inkdropapp/types@0.0.10':
+  '@inkdropapp/types@0.1.1':
     dependencies:
-      '@codemirror/commands': 6.10.4
+      '@codemirror/commands': 6.11.1
       '@codemirror/language': 6.12.4
-      '@codemirror/search': 6.7.1
+      '@codemirror/search': 6.7.2
       '@codemirror/state': 6.7.6
       '@codemirror/view': 6.43.13
       '@types/event-kit': 2.4.4
-      '@types/react': 19.2.18
+      '@types/react': 19.3.0
       glob: 13.0.6
-      inkdrop-model: 2.13.0
+      inkdrop-model: 3.0.0
       redux: 5.0.1
+    transitivePeerDependencies:
+      - ajv
 
   '@lezer/common@1.5.2': {}
 
@@ -1088,11 +1095,11 @@ snapshots:
 
   '@replit/codemirror-vim-core@0.1.0': {}
 
-  '@replit/codemirror-vim@6.4.0(@codemirror/commands@6.10.4)(@codemirror/language@6.12.4)(@codemirror/search@6.7.1)(@codemirror/state@6.7.6)(@codemirror/view@6.43.13)':
+  '@replit/codemirror-vim@6.4.0(@codemirror/commands@6.11.1)(@codemirror/language@6.12.4)(@codemirror/search@6.7.2)(@codemirror/state@6.7.6)(@codemirror/view@6.43.13)':
     dependencies:
-      '@codemirror/commands': 6.10.4
+      '@codemirror/commands': 6.11.1
       '@codemirror/language': 6.12.4
-      '@codemirror/search': 6.7.1
+      '@codemirror/search': 6.7.2
       '@codemirror/state': 6.7.6
       '@codemirror/view': 6.43.13
       '@replit/codemirror-vim-core': 0.1.0
@@ -1143,7 +1150,7 @@ snapshots:
 
   '@types/event-kit@2.4.4': {}
 
-  '@types/react@19.2.18':
+  '@types/react@19.3.0':
     dependencies:
       csstype: 3.2.3
 
@@ -1319,7 +1326,7 @@ snapshots:
 
   import-without-cache@0.4.0: {}
 
-  inkdrop-model@2.13.0: {}
+  inkdrop-model@3.0.0: {}
 
   lru-cache@11.5.2: {}
 
