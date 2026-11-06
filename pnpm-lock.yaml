@@ -16,7 +16,7 @@ importers:
         version: 6.43.15
       '@inkdropapp/types':
         specifier: ^0.1.0
-        version: 0.1.1
+        version: 0.1.2
       '@replit/codemirror-vim':
         specifier: ^6.4.0
         version: 6.4.0(@codemirror/commands@6.11.1)(@codemirror/language@6.12.4)(@codemirror/search@6.7.2)(@codemirror/state@6.7.6)(@codemirror/view@6.43.15)
@@ -50,8 +50,8 @@ packages:
   '@codemirror/view@6.43.15':
     resolution: {integrity: sha512-HHsfpqFeHyXLs983pSRe38Xajs0vFWZQ2BuX0m7Ki8w3jZ5iD8cuR3lBz2/5/X53Dhf32SBHKh6rtSTB6tKeGw==}
 
-  '@inkdropapp/types@0.1.1':
-    resolution: {integrity: sha512-dKM/NaesznvjTVAmhcBi5L+K8ZjyReO8/OorFGpK4gUXG+egGas0Kve8HfSdqHXPHflFNepbD5NG+u0htBUrrQ==}
+  '@inkdropapp/types@0.1.2':
+    resolution: {integrity: sha512-Ix7TFFDCgAUE9dREZENNQ+VKHmvB9yksTCF89UXZZD691YLbKgPJimC9l9qwIaYsh8RY1I3bRzydLnyUbuBYBg==}
 
   '@lezer/common@1.5.2':
     resolution: {integrity: sha512-sxQE460fPZyU3sdc8lafxiPwJHBzZRy/udNFynGQky1SePYBdhkBl1kOagA9uT3pxR8K09bOrmTUqA9wb/PjSQ==}
@@ -949,7 +949,7 @@ snapshots:
       style-mod: 4.1.3
       w3c-keyname: 2.2.8
 
-  '@inkdropapp/types@0.1.1':
+  '@inkdropapp/types@0.1.2':
     dependencies:
       '@codemirror/commands': 6.11.1
       '@codemirror/language': 6.12.4
