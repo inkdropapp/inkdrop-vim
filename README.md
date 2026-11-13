@@ -1,3 +1,6 @@
+> [!IMPORTANT]
+> This repository has moved to [inkdropapp/plugins](https://github.com/inkdropapp/plugins): [`packages/vim`](https://github.com/inkdropapp/plugins/tree/main/packages/vim). It is archived and read-only; please open issues and pull requests there.
+
 # vim keybindings plugin for Inkdrop
 
 Provides Vim modal control for Inkdrop, blending the best of Vim and Inkdrop.
